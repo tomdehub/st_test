@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tomde.cloud翡翠网站模板</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0a5f38;
+            --secondary-color: #d4af37;
+            --text-color: #333;
+            --bg-color: #f9f7f2;
+            --card-bg: #ffffff;
+            --transition: all 0.3s ease;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --max-width: 1200px;
+            --bg-style: linear-gradient(135deg, rgba(10, 95, 56, 0.8), rgba(212, 175, 55, 0.6)), url('https://cdn.jsdelivr.net/gh/tomdehub/resources/img/site/2025-08/15-30-38_1755329438574_bg.jpg') center/cover no-repeat;
+        }
+
+        .dark-mode {
+            --primary-color: #1db954;
+            --secondary-color: #d4af37;
+            --text-color: #e0e0e0;
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: var(--transition);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        /* 顶部区域 */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .logo i {
+            color: var(--secondary-color);
+        }
+
+        /* 暗黑模式切换 */
+        .theme-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+        }
+
+        .theme-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(30px);
+        }
+
+        .slider i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+        }
+
+        .fa-sun {
+            left: 8px;
+            color: #f1c40f;
+        }
+
+        .fa-moon {
+            right: 8px;
+            color: #f5f5f5;
+        }
+
+        /* 主横幅 */
+        .hero {
+            position: relative;
+            height: 80vh;
+            background: var(--bg-style);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-bottom: 60px;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1.2s ease;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: #333;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            animation: fadeInUp 1.4s ease;
+            border: 2px solid var(--secondary-color);
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        /* 产品特色 */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        /* 产品展示 */
+        .products {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--secondary-color);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-img {
+            height: 250px;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-name {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .product-price {
+            font-weight: bold;
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        /* 关于我们 */
+        .about {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 60px;
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+        }
+
+        .about-image {
+            height: 400px;
+            border-radius: 10px;
+            background: url('https://cdn.jsdelivr.net/gh/tomdehub/resources/img/site/2025-08/15-23-11_1755328991015_20250816040116.jpg') center/cover;
+        }
+
+        .about-content h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .about-content p {
+            margin-bottom: 20px;
+        }
+
+        /* 底部区域 */
+        .footer {
+            color: white;
+            text-align: center;
+        }
+
+        .footer-container {
+            border-radius: 15px 15px 0 0;
+            padding: 40px 0;
+            background: var(--bg-style);
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background: var(--secondary-color);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .copyright a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* 动画效果 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                height: 70vh;
+            }
+
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+
+            .hero {
+                height: 60vh;
+                margin-bottom: 40px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .btn {
+                padding: 10px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- 顶部栏 -->
+    <div class="top-bar">
+        <div class="logo">
+            <i class="fas fa-gem"></i>
+            <span>Tomde.cloud翡翠网站模板</span>
+        </div>
+        <div class="theme-toggle">
+            <label class="theme-switch">
+                <input type="checkbox" id="theme-toggle">
+                <span class="slider">
+                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-moon"></i>
+                    </span>
+            </label>
+        </div>
+    </div>
+
+    <!-- 主横幅 -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>传承东方之美，典藏翡翠臻品</h1>
+            <p>每一件翡翠都是大自然的馈赠，凝聚千年时光的精华</p>
+            <a href="#" class="btn">探索珍藏系列</a>
+        </div>
+    </section>
+
+    <!-- 特色区域 -->
+    <section class="features">
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-certificate"></i>
+            </div>
+            <h3>权威认证</h3>
+            <p>所有翡翠均附带国际权威鉴定证书，确保真品品质</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-handshake"></i>
+            </div>
+            <h3>匠心工艺</h3>
+            <p>传承百年工艺，由大师级工匠精心雕琢，呈现翡翠天然之美</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-gift"></i>
+            </div>
+            <h3>尊享定制</h3>
+            <p>提供私人定制服务，打造专属您的传世翡翠珍品</p>
+        </div>
+    </section>
+
+    <!-- 产品展示 -->
+    <section class="products">
+        <h2 class="section-title">典藏臻品</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-img"
+                     style="background: url('https://cdn.jsdelivr.net/gh/tomdehub/resources/img/site/2025-08/04-12-05_1755288725126_1.jpg') center/cover;"></div>
+                <div class="product-info">
+                    <h3 class="product-name">帝王绿翡翠手镯</h3>
+                    <p>冰种帝王绿，水头十足，完美无瑕</p>
+                    <div class="product-price">¥ 168,000</div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img"
+                     style="background: url('https://cdn.jsdelivr.net/gh/tomdehub/resources/img/site/2025-08/04-12-05_1755288725127_2.jpg') center/cover;"></div>
+                <div class="product-info">
+                    <h3 class="product-name">紫罗兰翡翠吊坠</h3>
+                    <p>天然紫罗兰色，雕工精湛，灵气十足</p>
+                    <div class="product-price">¥ 86,000</div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img"
+                     style="background: url('https://cdn.jsdelivr.net/gh/tomdehub/resources/img/site/2025-08/04-12-05_1755288725129_3.jpg') center/cover;"></div>
+                <div class="product-info">
+                    <h3 class="product-name">冰种翡翠观音</h3>
+                    <p>高冰种水，通透无瑕，大师精工雕刻</p>
+                    <div class="product-price">¥ 128,000</div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img"
+                     style="background: url('https://cdn.jsdelivr.net/gh/tomdehub/resources/img/site/2025-08/04-12-05_1755288725130_4.jpg') center/cover;"></div>
+                <div class="product-info">
+                    <h3 class="product-name">春带彩翡翠戒指</h3>
+                    <p>紫绿双色交融，18K金镶嵌，典雅大气</p>
+                    <div class="product-price">¥ 56,000</div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img"
+                     style="background: url('https://cdn.jsdelivr.net/gh/tomdehub/resources/img/site/2025-08/04-12-05_1755288725130_4.jpg') center/cover;"></div>
+                <div class="product-info">
+                    <h3 class="product-name">春带彩翡翠戒指</h3>
+                    <p>紫绿双色交融，18K金镶嵌，典雅大气</p>
+                    <div class="product-price">¥ 56,000</div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img"
+                     style="background: url('https://cdn.jsdelivr.net/gh/tomdehub/resources/img/site/2025-08/04-12-05_1755288725130_4.jpg') center/cover;"></div>
+                <div class="product-info">
+                    <h3 class="product-name">春带彩翡翠戒指</h3>
+                    <p>紫绿双色交融，18K金镶嵌，典雅大气</p>
+                    <div class="product-price">¥ 56,000</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于我们 -->
+    <section class="about">
+        <div class="about-image"></div>
+        <div class="about-content">
+            <h2>关于某某翡翠</h2>
+            <p>
+                某某翡翠创立于1998年，秉承"传承翡翠文化，弘扬东方美学"的理念，专注于高端翡翠的收藏与设计。我们拥有缅甸翡翠矿场直供渠道，确保每一件翡翠均为天然A货。</p>
+            <p>
+                公司拥有国家级玉雕大师团队，将传统工艺与现代审美完美结合，打造出兼具收藏价值与艺术美感的翡翠珍品。二十余年来，我们已为数万翡翠爱好者提供了值得珍藏一生的珠宝。</p>
+            <p>每一件某某翡翠都经过严格筛选，从原石采购到成品制作，经历37道工序，确保品质卓越，传承永恒。</p>
+            <a href="#" class="btn">了解更多</a>
+        </div>
+    </section>
+</div>
+
+<!-- 底部 -->
+<footer class="footer">
+    <div class="container footer-container">
+        <div class="contact-info">
+            <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>广东省佛山市翡翠大道888号</span>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-phone"></i>
+                <span>400-8888-9999</span>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <span>feicui@tomde.cloud</span>
+            </div>
+        </div>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-weixin"></i></a>
+            <a href="#"><i class="fab fa-weibo"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+            <a href="#"><i class="fab fa-bilibili"></i></a>
+        </div>
+        <div class="copyright">
+            <p>&copy; <a target="_blank" href="https://www.tomde.cloud">本站由Tomde.cloud提供</a></p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // 暗黑模式切换
+    const themeToggle = document.getElementById('theme-toggle');
+
+    // 检查本地存储或系统偏好
+    const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeToggle.checked = true;
+    }
+
+    themeToggle.addEventListener('change', function () {
+        if (this.checked) {
+            document.body.classList.add('dark-mode');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.body.classList.remove('dark-mode');
+            localStorage.setItem('theme', 'light');
+        }
+    });
+
+    // 滚动动画
+    const animateOnScroll = () => {
+        const elements = document.querySelectorAll('.feature-card, .product-card, .about');
+
+        elements.forEach(element => {
+            const elementPosition = element.getBoundingClientRect().top;
+            const screenPosition = window.innerHeight / 1.3;
+
+            if (elementPosition < screenPosition) {
+                element.style.opacity = 1;
+                element.style.transform = 'translateY(0)';
+            }
+        });
+    };
+
+    // 设置初始状态
+    document.querySelectorAll('.feature-card, .product-card, .about').forEach(el => {
+        el.style.opacity = 0;
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    });
+
+    // 监听滚动事件
+    window.addEventListener('scroll', animateOnScroll);
+    // 初始加载时也触发一次
+    window.addEventListener('load', animateOnScroll);
+</script>
+</body>
+</html>

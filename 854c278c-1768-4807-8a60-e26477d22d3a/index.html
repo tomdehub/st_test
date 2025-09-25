@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>圖壹壹麗緻美妝 - 您的專業美妝夥伴</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #c71585; /* 玫瑰粉 */
+            --secondary: #9370db; /* 薰衣草紫 */
+            --accent: #ff69b4; /* 亮粉色 */
+            --light: #fff0f5; /* 薰衣草腮红 */
+            --dark: #4b0082; /* 靛蓝 */
+            --text: #333333;
+            --text-light: #666666;
+            --gray: #f8f8f8;
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+            background-color: #fff;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 導航欄樣式 */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 16px;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-icons {
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-icons a {
+            margin-left: 20px;
+            color: var(--text);
+            font-size: 18px;
+            transition: var(--transition);
+        }
+        
+        .nav-icons a:hover {
+            color: var(--primary);
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            margin-left: 15px;
+        }
+        
+        /* 英雄區域樣式 */
+        .hero {
+            background: linear-gradient(135deg, rgba(199, 21, 133, 0.1) 0%, rgba(147, 112, 219, 0.1) 100%);
+            padding: 150px 0 100px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
+            z-index: 0;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .hero-text {
+            flex: 1;
+            padding-right: 40px;
+        }
+        
+        .hero-image {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .hero h1 span {
+            color: var(--primary);
+        }
+        
+        .hero p {
+            font-size: 18px;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            max-width: 500px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(199, 21, 133, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(199, 21, 133, 0.4);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            margin-left: 15px;
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .hero-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+        
+        /* 特色區域樣式 */
+        .features {
+            padding: 100px 0;
+            background-color: var(--gray);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--dark);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+        
+        .section-title p {
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 20px auto 0;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(199, 21, 133, 0.1), rgba(147, 112, 219, 0.1));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 32px;
+            color: var(--primary);
+        }
+        
+        .feature-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        /* 產品展示樣式 */
+        .products {
+            padding: 100px 0;
+        }
+        
+        .products-filter {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            background: none;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 5px 10px;
+            font-size: 16px;
+            cursor: pointer;
+            color: var(--text-light);
+            border-radius: 30px;
+            transition: var(--transition);
+        }
+        
+        .filter-btn.active, .filter-btn:hover {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--accent);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 500;
+            z-index: 2;
+        }
+        
+        .product-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-category {
+            color: var(--primary);
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .product-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .product-price {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .price {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 20px;
+        }
+        
+        .add-to-cart {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .add-to-cart:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* 促銷區域樣式 */
+        .promotion {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+        }
+        
+        .promotion h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .promotion p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+        
+        .countdown {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+        }
+        
+        .countdown-box {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            padding: 20px 15px;
+            margin: 0 10px;
+            min-width: 80px;
+        }
+        
+        .countdown-value {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .countdown-label {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        /* 頁腳樣式 */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 70px 0 20px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-col h3 {
+            font-size: 20px;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--primary);
+        }
+        
+        .footer-col p {
+            color: #bbb;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bbb;
+            font-size: 14px;
+        }
+
+        .copyright a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        /* 響應式設計 */
+        @media (max-width: 992px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-text {
+                padding-right: 0;
+                margin-bottom: 50px;
+            }
+            
+            .hero-text p {
+                margin: 0 auto 30px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: white;
+                flex-direction: column;
+                align-items: center;
+                padding-top: 50px;
+                transition: var(--transition);
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .section-title h2 {
+                font-size: 30px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero {
+                padding: 130px 0 60px;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .btn {
+                display: block;
+                margin-bottom: 15px;
+                text-align: center;
+            }
+            
+            .btn-outline {
+                margin-left: 0;
+            }
+            
+            .promotion h2 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 導航欄 -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <i class="fas fa-spa"></i>
+                    圖壹壹麗緻美妝
+                </a>
+                
+                <ul class="nav-links">
+                    <li><a href="#">首頁</a></li>
+                    <li><a href="#">產品系列</a></li>
+                    <li><a href="#">品牌故事</a></li>
+                    <li><a href="#">美妝教程</a></li>
+                    <li><a href="#">門市資訊</a></li>
+                    <li><a href="#">聯繫我們</a></li>
+                </ul>
+                
+                <div class="nav-icons">
+                    <a href="#"><i class="fas fa-search"></i></a>
+                    <a href="#"><i class="fas fa-shopping-bag"></i></a>
+                    <a href="#"><i class="fas fa-user"></i></a>
+                    <div class="hamburger">
+                        <i class="fas fa-bars"></i>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 英雄區域 -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>發現妳的<span>自然之美</span></h1>
+                    <p>精選天然成分，專業研發團隊，為您打造專屬的完美妝容。從肌膚護理到彩妝藝術，我們提供全方位的美妝解決方案。</p>
+                    <a href="#" class="btn">探索產品</a>
+                    <a href="#" class="btn btn-outline">了解更多</a>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=800" alt="化妝品展示">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 特色區域 -->
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>為何選擇我們</h2>
+                <p>我們致力於提供最高品質的產品與服務，讓每位顧客都能體驗到專業的美妝享受</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>天然成分</h3>
+                    <p>所有產品均採用天然植物萃取精華，無添加有害化學物質，溫和呵護您的肌膚。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h3>科學研發</h3>
+                    <p>專業研發團隊結合最新科技，打造高效護膚配方，讓美麗與科學完美融合。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h3>奢華體驗</h3>
+                    <p>從包裝到質感，每個細節都體現奢華品質，讓您享受尊貴的美妝體驗。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>個性化服務</h3>
+                    <p>專業美容顧問一對一服務，根據您的膚質和需求，量身打造專屬美妝方案。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 產品展示 -->
+    <section class="products">
+        <div class="container">
+            <div class="section-title">
+                <h2>熱銷產品</h2>
+                <p>探索我們最受歡迎的美妝產品，點亮您的獨特魅力</p>
+            </div>
+            
+            <div class="products-filter">
+                <button class="filter-btn active">全部產品</button>
+                <button class="filter-btn">護膚系列</button>
+                <button class="filter-btn">彩妝系列</button>
+                <button class="filter-btn">香水系列</button>
+                <button class="filter-btn">限量版</button>
+            </div>
+            
+            <div class="products-grid">
+                <!-- 產品 1 -->
+                <div class="product-card">
+                    <div class="product-badge">新品</div>
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1599640842225-85d111c60e6b?q=80&w=800" alt="玫瑰精華露">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">護膚系列</div>
+                        <h3 class="product-name">玫瑰煥活精華露</h3>
+                        <div class="product-price">
+                            <div class="price">NT$1,280</div>
+                            <div class="add-to-cart">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 產品 2 -->
+                <div class="product-card">
+                    <div class="product-badge">熱賣</div>
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1625772299848-391b6a87d7b3?q=80&w=800" alt="口紅">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">彩妝系列</div>
+                        <h3 class="product-name">絲絨霧面唇膏</h3>
+                        <div class="product-price">
+                            <div class="price">NT$980</div>
+                            <div class="add-to-cart">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 產品 3 -->
+                <div class="product-card">
+                    <div class="product-badge">限量</div>
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?q=80&w=800" alt="香水">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">香水系列</div>
+                        <h3 class="product-name">晨曦花園淡香水</h3>
+                        <div class="product-price">
+                            <div class="price">NT$2,150</div>
+                            <div class="add-to-cart">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 產品 4 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?q=80&w=800" alt="眼影盤">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">彩妝系列</div>
+                        <h3 class="product-name">星河璀璨眼影盤</h3>
+                        <div class="product-price">
+                            <div class="price">NT$1,350</div>
+                            <div class="add-to-cart">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 促銷區域 -->
+    <section class="promotion">
+        <div class="container">
+            <h2>夏日煥新特惠</h2>
+            <p>精選商品全面8折起，滿額再贈限量禮盒，機會難得，立即選購！</p>
+            
+            <div class="countdown">
+                <div class="countdown-box">
+                    <div class="countdown-value">03</div>
+                    <div class="countdown-label">天</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-value">18</div>
+                    <div class="countdown-label">時</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-value">45</div>
+                    <div class="countdown-label">分</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-value">22</div>
+                    <div class="countdown-label">秒</div>
+                </div>
+            </div>
+            
+            <a href="#" class="btn">立即選購</a>
+        </div>
+    </section>
+
+    <!-- 頁腳 -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>關於圖壹壹麗緻美妝</h3>
+                    <p>我們致力於創造高品質的美妝產品，結合自然成分與科學技術，讓每位顧客展現獨特魅力與自信光彩。</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>快速連結</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">首頁</a></li>
+                        <li><a href="#">產品系列</a></li>
+                        <li><a href="#">品牌故事</a></li>
+                        <li><a href="#">美妝教程</a></li>
+                        <li><a href="#">門市資訊</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>客戶服務</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">常見問題</a></li>
+                        <li><a href="#">運送政策</a></li>
+                        <li><a href="#">退換貨政策</a></li>
+                        <li><a href="#">隱私政策</a></li>
+                        <li><a href="#">聯繫我們</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>訂閱電子報</h3>
+                    <p>訂閱獲取最新產品資訊、獨家優惠與美妝技巧</p>
+                    <form onsubmit="return false;">
+                        <input type="email" placeholder="您的電子郵件" style="width:100%; padding:12px; margin-bottom:15px; border-radius:30px; border:none;">
+                        <button type="submit" class="btn" style="width:100%;">訂閱</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; <a target="_blank" href="http://tomde.cloud">本站由Tomde.cloud提供</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 導航欄漢堡菜單切換
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // 產品篩選功能
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // 移除所有按鈕的active類
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // 為當前點擊的按鈕添加active類
+                btn.classList.add('active');
+                
+                // 這裡可以添加實際的產品篩選邏輯
+            });
+        });
+        
+        // 倒計時功能
+        function updateCountdown() {
+            // 這裡設置促銷活動的結束時間
+            const endDate = new Date('2025-12-31T23:59:59').getTime();
+            const now = new Date().getTime();
+            const timeLeft = endDate - now;
+            
+            if (timeLeft > 0) {
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                
+                document.querySelector('.countdown-box:nth-child(1) .countdown-value').textContent = days.toString().padStart(2, '0');
+                document.querySelector('.countdown-box:nth-child(2) .countdown-value').textContent = hours.toString().padStart(2, '0');
+                document.querySelector('.countdown-box:nth-child(3) .countdown-value').textContent = minutes.toString().padStart(2, '0');
+                document.querySelector('.countdown-box:nth-child(4) .countdown-value').textContent = seconds.toString().padStart(2, '0');
+            }
+        }
+        
+        // 初始更新倒計時
+        updateCountdown();
+        // 每秒更新一次
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>

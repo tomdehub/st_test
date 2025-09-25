@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>体育健身用品 - 专业体育装备</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --tomde: #2563eb;
+            --primary: #d43bf6;
+            --secondary: #f97316;
+            --background: #ffffff;
+            --text: #1e293b;
+            --card-bg: #f8fafc;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --border: #e2e8f0;
+            --hero-bg: linear-gradient(135deg, #d43bf6 0%, #2563eb 100%);
+        }
+
+        .dark-mode {
+            --tomde: #3b82f6;
+            --primary: #d43bf6;
+            --secondary: #f59e0b;
+            --background: #0f172a;
+            --text: #e2e8f0;
+            --card-bg: #1e293b;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --border: #334155;
+            --hero-bg: linear-gradient(135deg, #d43bf6 0%, #1d4ed8 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.2s, transform 0.3s;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 暗黑模式切换按钮 */
+        .theme-toggle {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            z-index: 100;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(15deg) scale(1.1);
+            background: var(--secondary);
+            color: white;
+        }
+
+        /* 英雄区域 */
+        .hero {
+            padding: 100px 0 80px;
+            background: var(--hero-bg);
+            color: white;
+            text-align: center;
+            border-radius: 0 0 30px 30px;
+            margin-bottom: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: -100px;
+            left: -50px;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            bottom: -150px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 30px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px 40px;
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo i {
+            color: var(--secondary);
+            animation: pulse 2s infinite;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            animation: fadeInUp 1s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 16px 40px;
+            background: var(--secondary);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            cursor: pointer;
+            animation: fadeInUp 1s ease 0.4s forwards;
+            opacity: 0;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 5px 15px rgba(249, 115, 22, 0.3);
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+            z-index: -1;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(249, 115, 22, 0.4);
+        }
+
+        .btn:hover::after {
+            transform: translateX(100%);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            display: inline-block;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        .categories {
+            padding: 60px 0;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .category-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px var(--shadow);
+            transition: transform 0.3s;
+            border: 1px solid var(--border);
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px var(--shadow);
+        }
+
+        .category-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .category-content h3 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .featured {
+            padding: 60px 0;
+            background: var(--card-bg);
+            border-radius: 30px;
+            margin: 0 20px 60px;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
+            margin-top: 40px;
+        }
+
+        .product-card {
+            background: var(--background);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: all 0.3s;
+            border: 1px solid var(--border);
+        }
+
+        .product-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 15px 30px var(--shadow);
+        }
+
+        .product-img {
+            height: 250px;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: white;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-info h3 {
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .price {
+            color: var(--secondary);
+            font-weight: 700;
+            font-size: 1.4rem;
+            margin: 15px 0;
+        }
+
+        .rating {
+            color: #f59e0b;
+            margin-bottom: 15px;
+        }
+
+        .stats {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px 20px;
+            box-shadow: 0 5px 15px var(--shadow);
+            border: 1px solid var(--border);
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .cta {
+            padding: 100px 0;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary) 0%, #1d4ed8 100%);
+            color: white;
+            margin: 60px 0;
+            border-radius: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: "";
+            position: absolute;
+            top: -100px;
+            right: -50px;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta p {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            font-size: 1.2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta .btn {
+            position: relative;
+            z-index: 2;
+        }
+
+        footer {
+            background: var(--card-bg);
+            padding: 60px 0 30px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 30px 0;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: var(--background);
+            color: var(--tomde);
+            border-radius: 50%;
+            transition: all 0.3s;
+            font-size: 1.3rem;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            padding-top: 30px;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        .copyright a {
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        /* 动画效果 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 900px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 80px 0 60px;
+            }
+
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .logo {
+                font-size: 2rem;
+                padding: 10px 30px;
+            }
+
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+
+            .theme-toggle {
+                top: 15px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- 暗黑模式切换按钮 -->
+<button class="theme-toggle">
+    <i class="fas fa-moon"></i>
+</button>
+
+<!-- 大图区域 -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <div class="logo">
+                <i class="fas fa-dumbbell"></i>
+                <span>体育健身用品</span>
+            </div>
+            <h1>释放你的运动潜能</h1>
+            <p>专业体育装备，助力每一次突破。无论您是职业运动员还是健身爱好者，我们为您提供高品质的运动装备。</p>
+            <a href="#products" class="btn">探索产品</a>
+        </div>
+    </div>
+</section>
+
+<!-- 产品分类 -->
+<section class="categories">
+    <div class="container">
+        <div class="section-title">
+            <h2>精选产品类别</h2>
+        </div>
+
+        <div class="category-grid">
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-running"></i>
+                </div>
+                <div class="category-content">
+                    <h3>运动鞋类</h3>
+                    <p>专业跑鞋、篮球鞋、训练鞋等，提供卓越支撑和缓震</p>
+                </div>
+            </div>
+
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-tshirt"></i>
+                </div>
+                <div class="category-content">
+                    <h3>运动服饰</h3>
+                    <p>吸湿排汗面料，专业设计，提升运动表现</p>
+                </div>
+            </div>
+
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-basketball-ball"></i>
+                </div>
+                <div class="category-content">
+                    <h3>球类装备</h3>
+                    <p>篮球、足球、排球等专业比赛用球</p>
+                </div>
+            </div>
+
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-dumbbell"></i>
+                </div>
+                <div class="category-content">
+                    <h3>健身器材</h3>
+                    <p>哑铃、杠铃、健身器械等专业训练设备</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 精选产品 -->
+<section class="featured" id="products">
+    <div class="container">
+        <div class="section-title">
+            <h2>热销产品</h2>
+        </div>
+
+        <div class="products">
+            <div class="product-card">
+                <div class="product-img"
+                     style="background: url('https://cdn.jsdelivr.net/gh/tomdehub/resources/img/site/2025-08/20250817022548_1755368748410.png') center/cover no-repeat;"></div>
+                <div class="product-info">
+                    <h3>专业跑鞋</h3>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>(4.7)</span>
+                    </div>
+                    <p>轻量设计，卓越缓震，适合长距离跑步</p>
+                    <div class="price">¥699</div>
+                    <button class="btn">立即购买</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img"
+                     style="background: url('https://cdn.jsdelivr.net/gh/tomdehub/resources/img/site/2025-08/20250817022548_1755368748407.png') center/cover no-repeat;"></div>
+                <div class="product-info">
+                    <h3>篮球鞋</h3>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span>(4.2)</span>
+                    </div>
+                    <p>高帮设计，优异抓地力，专业篮球比赛首选</p>
+                    <div class="price">¥899</div>
+                    <button class="btn">立即购买</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img"
+                     style="background: url('https://cdn.jsdelivr.net/gh/tomdehub/resources/img/site/2025-08/20250817022548_1755368748409.png') center/cover no-repeat;"></div>
+                <div class="product-info">
+                    <h3>智能手表</h3>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>(5.0)</span>
+                    </div>
+                    <p>实时监测心率、血氧、运动数据，50米防水</p>
+                    <div class="price">¥1,299</div>
+                    <button class="btn">立即购买</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img"
+                     style="background: url('https://cdn.jsdelivr.net/gh/tomdehub/resources/img/site/2025-08/20250817022548_1755368748410.png') center/cover no-repeat;"></div>
+                <div class="product-info">
+                    <h3>专业跑鞋</h3>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>(4.7)</span>
+                    </div>
+                    <p>轻量设计，卓越缓震，适合长距离跑步</p>
+                    <div class="price">¥699</div>
+                    <button class="btn">立即购买</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img"
+                     style="background: url('https://cdn.jsdelivr.net/gh/tomdehub/resources/img/site/2025-08/20250817022548_1755368748407.png') center/cover no-repeat;"></div>
+                <div class="product-info">
+                    <h3>篮球鞋</h3>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span>(4.2)</span>
+                    </div>
+                    <p>高帮设计，优异抓地力，专业篮球比赛首选</p>
+                    <div class="price">¥899</div>
+                    <button class="btn">立即购买</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img"
+                     style="background: url('https://cdn.jsdelivr.net/gh/tomdehub/resources/img/site/2025-08/20250817022548_1755368748409.png') center/cover no-repeat;"></div>
+                <div class="product-info">
+                    <h3>智能手表</h3>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>(5.0)</span>
+                    </div>
+                    <p>实时监测心率、血氧、运动数据，50米防水</p>
+                    <div class="price">¥1,299</div>
+                    <button class="btn">立即购买</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 统计数据 -->
+<section class="stats">
+    <div class="container">
+        <div class="section-title">
+            <h2>为什么选择我们</h2>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">95%</div>
+                <h3>客户满意度</h3>
+                <p>超过95%的客户对我们的产品表示满意</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-number">10K+</div>
+                <h3>产品种类</h3>
+                <p>覆盖各类体育项目的专业装备</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-number">24/7</div>
+                <h3>客户支持</h3>
+                <p>全天候专业客服团队为您服务</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-number">3M+</div>
+                <h3>全球用户</h3>
+                <p>来自全球各地的运动爱好者选择我们</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 行动召唤 -->
+<section class="cta">
+    <div class="container">
+        <h2>限时优惠！全场8折起</h2>
+        <p>立即成为会员，领取专属优惠券，享受额外折扣和会员权益</p>
+        <a target="_blank" href="https://www.jd.com" class="btn">立即前往</a>
+    </div>
+</section>
+
+<!-- 页脚 -->
+<footer>
+    <div class="container">
+        <div class="logo">
+            <i class="fas fa-dumbbell"></i>
+            <span>体育健身用品</span>
+        </div>
+        <p>专业体育装备供应商 · 助力您的运动梦想</p>
+
+        <div class="social-links">
+            <a href="#"><i class="fab fa-weixin"></i></a>
+            <a href="#"><i class="fab fa-weibo"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+            <a href="#"><i class="fab fa-bilibili"></i></a>
+        </div>
+
+        <div class="copyright">
+            <p>&copy; <a target="_blank" href="https://www.tomde.cloud">本站由Tomde.cloud提供</a></p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // 暗黑模式切换
+    const themeToggle = document.querySelector('.theme-toggle');
+    const themeIcon = themeToggle.querySelector('i');
+
+    // 检查用户系统偏好
+    // const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    if (!localStorage.getItem('theme')) {
+        document.body.classList.add('dark-mode');
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+        localStorage.setItem('theme', 'dark');
+    }
+
+    // 检查本地存储
+    const currentTheme = localStorage.getItem('theme');
+
+    if (currentTheme === 'dark' || (!currentTheme && prefersDarkScheme.matches)) {
+        document.body.classList.add('dark-mode');
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+    }
+
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+
+        if (document.body.classList.contains('dark-mode')) {
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            themeIcon.classList.remove('fa-sun');
+            themeIcon.classList.add('fa-moon');
+            localStorage.setItem('theme', 'light');
+        }
+    });
+
+    // 立即按钮
+    const cartButtons = document.querySelectorAll('.product-card .btn');
+    cartButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            window.open("https://www.jd.com")
+        });
+    });
+
+    // 滚动动画
+    const observerOptions = {
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animation = 'fadeInUp 1s ease forwards';
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // 观察需要动画的元素
+    document.querySelectorAll('.category-card, .product-card, .stat-card').forEach(card => {
+        card.style.opacity = '0';
+        observer.observe(card);
+    });
+</script>
+</body>
+</html>

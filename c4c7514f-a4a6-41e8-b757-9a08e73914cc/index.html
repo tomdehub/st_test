@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>未来科技展览会 | 2023</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #8a2be2;
+            --secondary: #00b4d8;
+            --accent: #ff2a6d;
+            --dark: #121212;
+            --darker: #0a0a0a;
+            --light: #f8f9fa;
+            --gray: #2d2d2d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--darker);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 导航栏样式 */
+        header {
+            background-color: rgba(18, 18, 18, 0.95);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid var(--primary);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--secondary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--light);
+        }
+
+        /* 大区域样式 */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(to bottom, rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.7)), url('https://images.unsplash.com/photo-1535223289827-42f1e9919769?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1687&q=80') no-repeat center center/cover;
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #ccc;
+            max-width: 600px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 展览信息区域 */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            font-size: 2.5rem;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+        }
+
+        /* 展览特色 */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background-color: var(--dark);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+            border: 1px solid var(--gray);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--light);
+        }
+
+        /* 展览项目 */
+        .exhibits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .exhibit-card {
+            background-color: var(--dark);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+
+        .exhibit-card:hover {
+            transform: scale(1.03);
+        }
+
+        .exhibit-img {
+            height: 200px;
+            background-color: var(--gray);
+            background-position: center;
+            background-size: cover;
+        }
+
+        .exhibit-content {
+            padding: 20px;
+        }
+
+        .exhibit-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--light);
+        }
+
+        /* 时间地点 */
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .info-card {
+            background-color: var(--dark);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            border: 1px solid var(--gray);
+        }
+
+        .info-card i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .info-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        /* 页脚 */
+        footer {
+            background-color: var(--dark);
+            padding: 50px 0 20px;
+            border-top: 1px solid var(--gray);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+
+        .footer-section p, .footer-section li {
+            color: #ccc;
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--secondary);
+        }
+
+        .social-icons a {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--gray);
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .copyright a {
+            color: white;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: var(--dark);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: left 0.3s;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .btn {
+                padding: 10px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- 导航栏 -->
+<header>
+    <div class="container">
+        <nav>
+            <a href="#" class="logo">未来<span>科技展</span></a>
+            <div class="menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">首页</a></li>
+                <li><a href="#about">关于展览</a></li>
+                <li><a href="#exhibits">展览项目</a></li>
+                <li><a href="#info">时间地点</a></li>
+                <li><a href="#tickets">购票</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- 大区域 -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1>探索未来科技的无限可能</h1>
+            <p>2023年未来科技展览会将于11月15日盛大开幕，展示人工智能、虚拟现实、量子计算等前沿科技，带您体验明日世界。</p>
+            <a href="#tickets" class="btn">立即购票</a>
+        </div>
+    </div>
+</section>
+
+<!-- 关于展览 -->
+<section id="about" class="section">
+    <div class="container">
+        <h2 class="section-title">展览亮点</h2>
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3>人工智能</h3>
+                <p>体验最新的人工智能技术，与智能机器人互动，了解AI如何改变我们的生活和工作方式。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-vr-cardboard"></i>
+                </div>
+                <h3>虚拟现实</h3>
+                <p>进入完全沉浸式的虚拟世界，体验最先进的VR和AR技术，感受数字与现实的完美融合。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-microchip"></i>
+                </div>
+                <h3>量子计算</h3>
+                <p>了解量子计算的最新进展，探索这一革命性技术如何解决传统计算机无法应对的复杂问题。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 展览项目 -->
+<section id="exhibits" class="section" style="background-color: var(--dark);">
+    <div class="container">
+        <h2 class="section-title">特色展品</h2>
+        <div class="exhibits">
+            <div class="exhibit-card">
+                <div class="exhibit-img" style="background-image: url('https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80');"></div>
+                <div class="exhibit-content">
+                    <h3>神经接口设备</h3>
+                    <p>直接通过大脑信号控制计算机和其他设备，体验思维与机器的无缝连接。</p>
+                </div>
+            </div>
+            <div class="exhibit-card">
+                <div class="exhibit-img" style="background-image: url('https://images.unsplash.com/photo-1593508512255-86ab42a8e620?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1458&q=80');"></div>
+                <div class="exhibit-content">
+                    <h3>量子计算机原型</h3>
+                    <p>亲眼目睹正在运行中的量子计算机，了解量子比特如何实现指数级计算能力。</p>
+                </div>
+            </div>
+            <div class="exhibit-card">
+                <div class="exhibit-img" style="background-image: url('https://images.unsplash.com/photo-1530893609608-32a9af3aa95c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1464&q=80');"></div>
+                <div class="exhibit-content">
+                    <h3>全息交互系统</h3>
+                    <p>与逼真的全息影像互动，体验无需特殊眼镜的3D显示技术。</p>
+                </div>
+            </div>
+            <div class="exhibit-card">
+                <div class="exhibit-img" style="background-image: url('https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80');"></div>
+                <div class="exhibit-content">
+                    <h3>神经接口设备</h3>
+                    <p>直接通过大脑信号控制计算机和其他设备，体验思维与机器的无缝连接。</p>
+                </div>
+            </div>
+            <div class="exhibit-card">
+                <div class="exhibit-img" style="background-image: url('https://images.unsplash.com/photo-1593508512255-86ab42a8e620?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1458&q=80');"></div>
+                <div class="exhibit-content">
+                    <h3>量子计算机原型</h3>
+                    <p>亲眼目睹正在运行中的量子计算机，了解量子比特如何实现指数级计算能力。</p>
+                </div>
+            </div>
+            <div class="exhibit-card">
+                <div class="exhibit-img" style="background-image: url('https://images.unsplash.com/photo-1530893609608-32a9af3aa95c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1464&q=80');"></div>
+                <div class="exhibit-content">
+                    <h3>全息交互系统</h3>
+                    <p>与逼真的全息影像互动，体验无需特殊眼镜的3D显示技术。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 时间地点 -->
+<section id="info" class="section">
+    <div class="container">
+        <h2 class="section-title">时间与地点</h2>
+        <div class="info-cards">
+            <div class="info-card">
+                <i class="far fa-calendar-alt"></i>
+                <h3>展览日期</h3>
+                <p>2023年11月15日 - 11月30日</p>
+                <p>每日开放时间: 9:00 - 18:00</p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>展览地点</h3>
+                <p>广州展览中心</p>
+                <p>广东省广州市海珠区广交会展览中心4号馆</p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-ticket-alt"></i>
+                <h3>票务信息</h3>
+                <p>普通票: ￥120</p>
+                <p>学生票: ￥80 (需出示有效证件)</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 购票区域 -->
+<section id="tickets" class="section" style="background-color: var(--dark); text-align: center;">
+    <div class="container">
+        <h2 class="section-title">立即购票</h2>
+        <p style="max-width: 600px; margin: 0 auto 30px;">提前购票可享受9折优惠，团体购票(10人以上)可享受额外折扣。</p>
+        <a href="#" class="btn">购买门票</a>
+    </div>
+</section>
+
+<!-- 页脚 -->
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>关于我们</h3>
+                <p>未来科技展是亚洲最大的科技展览会之一，致力于展示和推广最新科技创新，连接科技企业与爱好者。</p>
+            </div>
+            <div class="footer-section">
+                <h3>快速链接</h3>
+                <ul>
+                    <li><a href="#">首页</a></li>
+                    <li><a href="#about">展览亮点</a></li>
+                    <li><a href="#exhibits">特色展品</a></li>
+                    <li><a href="#info">时间地点</a></li>
+                    <li><a href="#tickets">购票</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>联系我们</h3>
+                <p><i class="fas fa-phone"></i> 222-88889999</p>
+                <p><i class="fas fa-envelope"></i> info@tomde.cloud</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-weibo"></i></a>
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                    <a href="#"><i class="fab fa-bilibili"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; <a target="_blank" href="https://www.tomde.cloud">本站由Tomde.cloud提供</a></p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // 移动端菜单切换
+    document.querySelector('.menu-btn').addEventListener('click', function() {
+        document.querySelector('.nav-links').classList.toggle('active');
+    });
+
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+
+                // 关闭移动端菜单
+                document.querySelector('.nav-links').classList.remove('active');
+            }
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>暗夜小馆 - 特色威士忌与精酿啤酒</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 英雄区域 */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), url('https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&h=900&q=80') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 5rem;
+            color: #c8a97e;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(200, 169, 126, 0.5);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+            color: #c8a97e;
+        }
+
+        .divider {
+            width: 100px;
+            height: 3px;
+            background: #c8a97e;
+            margin: 20px auto;
+        }
+
+        /* 关于区域 */
+        .about {
+            padding: 100px 20px;
+            background-color: #111;
+        }
+
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            height: 400px;
+            background: url('https://images.unsplash.com/photo-1572116469696-31de0f17cc34?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80') no-repeat center center/cover;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #c8a97e;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: #c8a97e;
+        }
+
+        /* 特色区域 */
+        .features {
+            padding: 100px 20px;
+            background-color: #0a0a0a;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background: #111;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border: 1px solid #222;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: #c8a97e;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #c8a97e;
+            margin-bottom: 20px;
+        }
+
+        /* 菜单区域 */
+        .menu {
+            padding: 100px 20px;
+            background-color: #111;
+        }
+
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .menu-item {
+            background: #0a0a0a;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #c8a97e;
+        }
+
+        .menu-item h3 {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            color: #c8a97e;
+        }
+
+        .price {
+            color: #c8a97e;
+            font-weight: bold;
+        }
+
+        /* 联系区域 */
+        .contact {
+            padding: 100px 20px;
+            background-color: #0a0a0a;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .info-card {
+            text-align: center;
+            padding: 30px;
+            background: #111;
+            border-radius: 10px;
+        }
+
+        .info-icon {
+            font-size: 2rem;
+            color: #c8a97e;
+            margin-bottom: 20px;
+        }
+
+        /* 页脚 */
+        footer {
+            background: #111;
+            padding: 30px 20px;
+            text-align: center;
+            border-top: 1px solid #222;
+        }
+
+        .social-icons {
+            margin-bottom: 20px;
+        }
+
+        .social-icons a {
+            color: #c8a97e;
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #fff;
+        }
+
+        .copyright a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .logo {
+                font-size: 3.5rem;
+            }
+
+            .about-content {
+                flex-direction: column;
+            }
+
+            .about-image {
+                width: 100%;
+            }
+        }
+
+        /* 动画效果 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate {
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        .delay-1 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.4s;
+        }
+
+        .delay-3 {
+            animation-delay: 0.6s;
+        }
+    </style>
+</head>
+<body>
+<!-- 大字区域 -->
+<section class="hero">
+    <div class="logo">
+        <i class="fas fa-wine-glass-alt"></i>
+    </div>
+    <h1>暗夜小馆</h1>
+    <div class="divider"></div>
+    <p>品味夜色，沉醉时光 - 专属于您的私人小酌空间</p>
+</section>
+
+<!-- 菜单区域 -->
+<section class="menu">
+    <div class="container">
+        <h2 class="animate">特色推荐</h2>
+        <div class="menu-items">
+            <div class="menu-item animate">
+                <h3>山崎12年单一麦芽威士忌 <span class="price">¥198</span></h3>
+                <p>来自日本威士忌的经典之作，带有柑橘、桃子和淡淡香料的气息。</p>
+            </div>
+            <div class="menu-item animate delay-1">
+                <h3>麦卡伦12年雪莉桶 <span class="price">¥168</span></h3>
+                <p>苏格兰斯佩赛产区的经典，干果、雪莉酒和香料的完美平衡。</p>
+            </div>
+            <div class="menu-item animate delay-2">
+                <h3>精酿啤酒 flight <span class="price">¥128</span></h3>
+                <p>一次品尝4种我们的当家精酿，从淡色艾尔到世涛应有尽有。</p>
+            </div>
+            <div class="menu-item animate">
+                <h3>山崎12年单一麦芽威士忌 <span class="price">¥198</span></h3>
+                <p>来自日本威士忌的经典之作，带有柑橘、桃子和淡淡香料的气息。</p>
+            </div>
+            <div class="menu-item animate delay-1">
+                <h3>麦卡伦12年雪莉桶 <span class="price">¥168</span></h3>
+                <p>苏格兰斯佩赛产区的经典，干果、雪莉酒和香料的完美平衡。</p>
+            </div>
+            <div class="menu-item animate delay-2">
+                <h3>精酿啤酒 flight <span class="price">¥128</span></h3>
+                <p>一次品尝4种我们的当家精酿，从淡色艾尔到世涛应有尽有。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 关于区域 -->
+<section class="about">
+    <div class="container">
+        <div class="about-content">
+            <div class="about-text animate">
+                <h2>我们的故事</h2>
+                <p>
+                    暗夜小馆创立于2015年，是一家专注于威士忌与精酿啤酒的特色酒馆。我们致力于为都市人提供一个放松身心、品味美酒的静谧空间。</p>
+                <p>
+                    在这里，您可以品尝到来自世界各地的精选酒品，每一款都由我们的专业调酒师精心挑选。无论是独自小酌还是与友共饮，暗夜小馆都能为您提供最舒适的氛围。</p>
+                <p>我们的理念是：好酒需要慢慢品，好时光需要慢慢过。</p>
+            </div>
+            <div class="about-image animate delay-1"></div>
+        </div>
+    </div>
+</section>
+
+<!-- 特色区域 -->
+<section class="features">
+    <div class="container">
+        <h2 class="animate">为何选择我们</h2>
+        <div class="features-grid">
+            <div class="feature-card animate">
+                <div class="feature-icon">
+                    <i class="fas fa-glass-whiskey"></i>
+                </div>
+                <h3>精选酒品</h3>
+                <p>拥有超过200种威士忌和50多种精酿啤酒，定期更新酒单，带给您全新的味蕾体验。</p>
+            </div>
+            <div class="feature-card animate delay-1">
+                <div class="feature-icon">
+                    <i class="fas fa-music"></i>
+                </div>
+                <h3>氛围音乐</h3>
+                <p>每晚现场爵士乐表演，为您营造轻松惬意的氛围，让音乐与美酒相伴。</p>
+            </div>
+            <div class="feature-card animate delay-2">
+                <div class="feature-icon">
+                    <i class="fas fa-concierge-bell"></i>
+                </div>
+                <h3>专业服务</h3>
+                <p>资深调酒师为您推荐最适合的酒品，并提供专业的品酒指导。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 联系区域 -->
+<section class="contact">
+    <div class="container">
+        <h2 class="animate">联系我们</h2>
+        <div class="contact-info">
+            <div class="info-card animate">
+                <div class="info-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h3>地址</h3>
+                <p>广东省广州市天河区黄埔大道1024号</p>
+            </div>
+            <div class="info-card animate delay-1">
+                <div class="info-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h3>营业时间</h3>
+                <p>周一至周四: 18:00 - 01:00</p>
+                <p>周五至周日: 18:00 - 02:00</p>
+            </div>
+            <div class="info-card animate delay-2">
+                <div class="info-icon">
+                    <i class="fas fa-phone"></i>
+                </div>
+                <h3>电话</h3>
+                <p>+86 196 8888 9999</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 页脚 -->
+<footer>
+    <div class="social-icons">
+        <a href="#"><i class="fab fa-weixin"></i></a>
+        <a href="#"><i class="fab fa-weibo"></i></a>
+        <a href="#"><i class="fab fa-tiktok"></i></a>
+    </div>
+    <p class="copyright">&copy; <a target="_blank" href="https://www.tomde.cloud">本站由Tomde.cloud提供</a></p>
+</footer>
+
+<script>
+    // 简单的滚动动画效果
+    document.addEventListener('DOMContentLoaded', function () {
+        const animatedElements = document.querySelectorAll('.animate');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        animatedElements.forEach(element => {
+            element.style.opacity = 0;
+            element.style.transition = 'opacity 0.5s ease-out';
+            observer.observe(element);
+        });
+    });
+</script>
+</body>
+</html>

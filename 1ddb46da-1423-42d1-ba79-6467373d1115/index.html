@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>响应式官网-支持暗黑模式</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #3b82f6;
+            --text-color: #1f2937;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --header-bg: rgba(255, 255, 255, 0.95);
+            --footer-bg: #1e293b;
+            --border-color: #e2e8f0;
+            --transition: all 0.3s ease;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            --width: 1400px;
+        }
+
+        .dark-mode {
+            --primary-color: #3b82f6;
+            --secondary-color: #60a5fa;
+            --text-color: #e2e8f0;
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --header-bg: rgba(15, 23, 42, 0.95);
+            --footer-bg: #0f172a;
+            --border-color: #334155;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: var(--transition);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: var(--width);
+            margin: 0 auto;
+        }
+
+        /* 导航栏样式 */
+        header {
+            background-color: var(--header-bg);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .theme-toggle {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 20px;
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+
+        /* 英雄区域样式 */
+        .hero {
+            text-align: center;
+            color: white;
+            margin-top: 80px;
+        }
+
+        .hero-container {
+            padding: 150px 0 100px;
+            background: var(--gradient);
+            border-radius: 20px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: white;
+            color: var(--primary-color);
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* 服务区域样式 */
+        .section-title {
+            text-align: center;
+            margin: 80px 0 50px;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+        }
+
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .service-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .service-card i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        /* 关于我们样式 */
+        .about {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+
+        .about-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .about-image {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* 项目展示样式 */
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .project-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .project-image {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-content {
+            padding: 20px;
+        }
+
+        .project-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        /* 联系表单样式 */
+        .contact {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 50px;
+            margin-bottom: 80px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .contact-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group.full {
+            grid-column: 1 / span 2;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+        }
+
+        .submit-btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        /* 页脚样式 */
+        footer {
+            background-color: var(--footer-bg);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+
+        .footer-column p,
+        .footer-column a {
+            color: #cbd5e1;
+            margin-bottom: 10px;
+            display: block;
+            text-decoration: none;
+        }
+
+        .footer-column a:hover {
+            color: var(--secondary-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .social-links a:hover {
+            background: var(--primary-color);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+        }
+
+        .copyright a {
+            color: inherit;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .about {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-form {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--header-bg);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: var(--shadow);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 120px 0 80px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .contact {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- 导航栏 -->
+<header>
+    <div class="container">
+        <nav>
+            <div class="logo">
+                <i class="fas fa-rocket"></i>
+                &nbsp;&nbsp;
+                <span>科技企业</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">首页</a></li>
+                <li><a href="#services">服务</a></li>
+                <li><a href="#about">关于我们</a></li>
+                <li><a href="#projects">项目案例</a></li>
+                <li><a href="#contact">联系我们</a></li>
+                <li>
+                    <button class="theme-toggle" id="theme-toggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+            </ul>
+            <button class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </div>
+</header>
+
+<!-- 大字区域 -->
+<section class="hero" id="home">
+    <div class="container hero-container">
+        <h1>创新科技，引领未来</h1>
+        <p>我们致力于为企业提供最先进的科技解决方案，助力您的业务在数字时代脱颖而出</p>
+        <a href="#contact" class="btn">联系我们</a>
+        <a href="#services" class="btn">了解更多</a>
+    </div>
+</section>
+
+<!-- 服务区域 -->
+<section class="container" id="services">
+    <h2 class="section-title">我们的服务</h2>
+    <div class="services">
+        <div class="service-card">
+            <i class="fas fa-laptop-code"></i>
+            <h3>网站开发</h3>
+            <p>专业响应式网站设计与开发，确保您的网站在所有设备上完美展示。</p>
+        </div>
+        <div class="service-card">
+            <i class="fas fa-mobile-alt"></i>
+            <h3>移动应用</h3>
+            <p>iOS和Android应用开发，为用户提供卓越的移动体验。</p>
+        </div>
+        <div class="service-card">
+            <i class="fas fa-chart-line"></i>
+            <h3>数字营销</h3>
+            <p>数据驱动的数字营销策略，提升您的品牌知名度和业务增长。</p>
+        </div>
+    </div>
+</section>
+
+<!-- 关于我们 -->
+<section class="container" id="about">
+    <h2 class="section-title">关于我们</h2>
+    <div class="about">
+        <div class="about-content">
+            <h2>10年行业经验</h2>
+            <p>
+                我们是一家专注于数字化转型的科技公司，成立于2013年。我们的团队由经验丰富的开发人员、设计师和数字营销专家组成。</p>
+            <p>我们始终坚持以客户为中心，通过创新的技术解决方案帮助企业实现业务目标，提升市场竞争力。</p>
+            <p>至今，我们已经为超过500家企业提供了专业的数字化服务，客户满意度达到98%。</p>
+        </div>
+        <div class="about-image">
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80"
+                 alt="团队照片">
+        </div>
+    </div>
+</section>
+
+<!-- 项目案例 -->
+<section class="container" id="projects">
+    <h2 class="section-title">项目案例</h2>
+    <div class="projects">
+        <div class="project-card">
+            <div class="project-image">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=200&q=80"
+                     alt="电子商务项目">
+            </div>
+            <div class="project-content">
+                <h3>电子商务平台</h3>
+                <p>为全球零售商打造的全功能电子商务解决方案，提升销售额30%。</p>
+            </div>
+        </div>
+        <div class="project-card">
+            <div class="project-image">
+                <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=200&q=80"
+                     alt="教育科技项目">
+            </div>
+            <div class="project-content">
+                <h3>教育科技平台</h3>
+                <p>创新的在线学习平台，为教育机构提供全面的数字化解决方案。</p>
+            </div>
+        </div>
+        <div class="project-card">
+            <div class="project-image">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=200&q=80"
+                     alt="金融科技项目">
+            </div>
+            <div class="project-content">
+                <h3>金融科技应用</h3>
+                <p>安全可靠的金融科技解决方案，帮助金融机构提升服务效率。</p>
+            </div>
+        </div>
+        <div class="project-card">
+            <div class="project-image">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=200&q=80"
+                     alt="电子商务项目">
+            </div>
+            <div class="project-content">
+                <h3>电子商务平台</h3>
+                <p>为全球零售商打造的全功能电子商务解决方案，提升销售额30%。</p>
+            </div>
+        </div>
+        <div class="project-card">
+            <div class="project-image">
+                <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=200&q=80"
+                     alt="教育科技项目">
+            </div>
+            <div class="project-content">
+                <h3>教育科技平台</h3>
+                <p>创新的在线学习平台，为教育机构提供全面的数字化解决方案。</p>
+            </div>
+        </div>
+        <div class="project-card">
+            <div class="project-image">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=200&q=80"
+                     alt="金融科技项目">
+            </div>
+            <div class="project-content">
+                <h3>金融科技应用</h3>
+                <p>安全可靠的金融科技解决方案，帮助金融机构提升服务效率。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 联系我们 -->
+<section class="container" id="contact">
+    <h2 class="section-title">联系我们</h2>
+    <div class="contact">
+        <form class="contact-form">
+            <div class="form-group">
+                <label for="name">姓名</label>
+                <input type="text" id="name" placeholder="请输入您的姓名">
+            </div>
+            <div class="form-group">
+                <label for="tel">电话</label>
+                <input type="tel" id="tel" placeholder="请输入您的电话">
+            </div>
+            <div class="form-group full">
+                <label for="message">留言</label>
+                <textarea id="message" placeholder="请输入您的留言"></textarea>
+            </div>
+            <div class="form-group full">
+                <button type="submit" class="submit-btn">发送消息</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- 页脚 -->
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>关于我们</h3>
+                <p>我们是一家专注于数字化转型的科技公司，致力于帮助企业实现业务创新和增长。</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fab fa-weibo"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                    <a href="#"><i class="fab fa-bilibili"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>快速链接</h3>
+                <a href="#home">首页</a>
+                <a href="#services">服务</a>
+                <a href="#about">关于我们</a>
+                <a href="#projects">项目案例</a>
+                <a href="#contact">联系我们</a>
+            </div>
+            <div class="footer-column">
+                <h3>服务项目</h3>
+                <a href="#">网站开发</a>
+                <a href="#">移动应用</a>
+                <a href="#">数字营销</a>
+            </div>
+            <div class="footer-column">
+                <h3>联系我们</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 深圳市南山区科技园区8098号</p>
+                <p><i class="fas fa-phone"></i> +86 101 8888 8888</p>
+                <p><i class="fas fa-envelope"></i> tech@tomde.cloud</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 本站由<a target="_blank" href="https://www.tomde.cloud">Tomde.cloud</a>提供</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // 主题切换功能
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = themeToggle.querySelector('i');
+
+    const darkMode = localStorage.getItem('dark-mode')
+    if (darkMode && darkMode === 'true') {
+        document.body.classList.add('dark-mode')
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+    }
+
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        if (document.body.classList.contains('dark-mode')) {
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+            localStorage.setItem('dark-mode', 'true')
+        } else {
+            themeIcon.classList.remove('fa-sun');
+            themeIcon.classList.add('fa-moon');
+            localStorage.setItem('dark-mode', 'false')
+        }
+    });
+
+    // 移动端菜单切换
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+
+                // 关闭移动端菜单
+                navLinks.classList.remove('active');
+            }
+        });
+    });
+</script>
+</body>
+</html>

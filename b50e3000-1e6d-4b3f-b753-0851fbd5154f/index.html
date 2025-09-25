@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>极速摩托车 - 专业销售与服务</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #e63946;
+            --secondary-color: #1d3557;
+            --accent-color: #a8dadc;
+            --text-light: #f1faee;
+            --bg-light: #f8f9fa;
+            --bg-dark: #121212;
+            --text-dark: #333;
+            --card-light: #ffffff;
+            --card-dark: #1e1e1e;
+            --transition: all 0.3s ease;
+            --text-price-color: var(--primary-color);
+        }
+
+        .light-theme {
+            --bg-primary: var(--bg-light);
+            --text-primary: var(--text-dark);
+            --card-bg: var(--card-light);
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --footer-bg: var(--secondary-color);
+            --footer-text: var(--text-light);
+        }
+
+        .dark-theme {
+            --bg-primary: var(--bg-dark);
+            --text-primary: var(--text-light);
+            --card-bg: var(--card-dark);
+            --nav-bg: rgba(30, 30, 30, 0.95);
+            --footer-bg: #0a0a0a;
+            --footer-text: var(--text-light);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: var(--transition);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 导航栏样式 */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: var(--nav-bg);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .logo i {
+            margin-right: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            position: relative;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin-left: 20px;
+        }
+
+        /* 英雄区域样式 */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            background-color: #c1121f;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 产品展示区域 */
+        .section-title {
+            text-align: center;
+            margin: 60px 0 40px;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+        }
+
+        .products {
+            padding: 80px 0;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .product-card:hover .product-img img {
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .product-info p {
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-price-color);
+
+        }
+
+        /* 促销区域 */
+        .promo {
+            background: linear-gradient(rgba(29, 53, 87, 0.9), rgba(29, 53, 87, 0.9)), url('https://images.unsplash.com/photo-1517846693594-1567da72af75?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .promo h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+        }
+
+        .countdown-item {
+            margin: 0 10px;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            min-width: 80px;
+        }
+
+        .countdown-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        /* 服务区域 */
+        .services {
+            padding: 80px 0;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            text-align: center;
+            padding: 30px;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-card i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        /* 页脚 */
+        footer {
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+
+        .footer-section p, .footer-section li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: var(--footer-text);
+            text-decoration: none;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-color);
+        }
+
+        .social-icons a {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .copyright a {
+            color: white;
+            text-decoration: none;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .countdown-item {
+                min-width: 60px;
+                padding: 10px;
+            }
+
+            .countdown-number {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* 菜单 */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                flex-direction: column;
+                background-color: var(--nav-bg);
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                transform: translateY(-100%);
+                opacity: 0;
+                pointer-events: none;
+                text-align: center;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+        }
+    </style>
+</head>
+<body class="light-theme">
+<!-- 导航栏 -->
+<header>
+    <div class="container">
+        <nav>
+            <div class="logo">
+                <i class="fas fa-motorcycle"></i>
+                <span>极速摩托</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">首页</a></li>
+                <li><a href="#products">产品</a></li>
+                <li><a href="#promo">促销</a></li>
+                <li><a href="#services">服务</a></li>
+                <li><a href="#contact">联系我们</a></li>
+                <li>
+                    <button class="theme-toggle" id="theme-toggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<!-- 大字宣传区域 -->
+<section class="hero" id="home">
+    <div class="container">
+        <div class="hero-content">
+            <h1>探索极致骑行体验</h1>
+            <p>我们提供最优质的摩托车选择，从城市通勤到冒险旅行，总有一款适合您。专业服务，卓越性能，尽在极速摩托。</p>
+            <a href="#products" class="btn">探索车型</a>
+        </div>
+    </div>
+</section>
+
+<!-- 产品展示 -->
+<section class="products" id="products">
+    <div class="container">
+        <h2 class="section-title">热门车型</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                         alt="Sport Bike">
+                </div>
+                <div class="product-info">
+                    <h3>运动系列 R1</h3>
+                    <p>强劲动力，卓越操控，适合追求速度与激情的骑手。</p>
+                    <span class="price">￥68,800起</span>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                         alt="Cruiser">
+                </div>
+                <div class="product-info">
+                    <h3>巡航者 Classic</h3>
+                    <p>舒适座椅，经典设计，长途旅行的理想选择。</p>
+                    <span class="price">￥55,900起</span>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1609630875171-b1321377ee65?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                         alt="Adventure">
+                </div>
+                <div class="product-info">
+                    <h3>冒险家 X3</h3>
+                    <p>全地形能力，强劲扭矩，探索未知领域的完美伙伴。</p>
+                    <span class="price">￥72,500起</span>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1609630875171-b1321377ee65?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                         alt="Adventure">
+                </div>
+                <div class="product-info">
+                    <h3>冒险家 X3</h3>
+                    <p>全地形能力，强劲扭矩，探索未知领域的完美伙伴。</p>
+                    <span class="price">￥72,500起</span>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                         alt="Sport Bike">
+                </div>
+                <div class="product-info">
+                    <h3>运动系列 R1</h3>
+                    <p>强劲动力，卓越操控，适合追求速度与激情的骑手。</p>
+                    <span class="price">￥68,800起</span>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                         alt="Sport Bike">
+                </div>
+                <div class="product-info">
+                    <h3>运动系列 R1</h3>
+                    <p>强劲动力，卓越操控，适合追求速度与激情的骑手。</p>
+                    <span class="price">￥68,800起</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 促销区域 -->
+<section class="promo" id="promo">
+    <div class="container">
+        <h2>夏季特惠活动</h2>
+        <p>现在购买指定车型可享受最高￥10,000优惠和三年免费保养服务</p>
+        <div class="countdown">
+            <div class="countdown-item">
+                <div class="countdown-number">05</div>
+                <div class="countdown-label">天</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number">12</div>
+                <div class="countdown-label">时</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number">45</div>
+                <div class="countdown-label">分</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number">30</div>
+                <div class="countdown-label">秒</div>
+            </div>
+        </div>
+        <a href="#contact" class="btn">立即咨询</a>
+    </div>
+</section>
+
+<!-- 服务区域 -->
+<section class="services" id="services">
+    <div class="container">
+        <h2 class="section-title">我们的服务</h2>
+        <div class="service-grid">
+            <div class="service-card">
+                <i class="fas fa-tools"></i>
+                <h3>专业维修</h3>
+                <p> certified technicians using genuine parts</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-clipboard-list"></i>
+                <h3>定期保养</h3>
+                <p>延长爱车寿命，保持最佳性能</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-dollar-sign"></i>
+                <h3>金融方案</h3>
+                <p>灵活付款方式，让您轻松拥有梦想座驾</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>延长保修</h3>
+                <p>额外保障，让您骑行无忧</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 页脚 -->
+<footer id="contact">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>关于我们</h3>
+                <p>
+                    极速摩托车行成立于2010年，致力于为客户提供最优质的摩托车产品和最专业的服务。我们的团队由经验丰富的骑行爱好者组成，了解每一位骑手的需求。</p>
+            </div>
+            <div class="footer-section">
+                <h3>联系方式</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 广东省广州市摩托车大道1088号</p>
+                <p><i class="fas fa-phone"></i> 400-6666-8888</p>
+                <p><i class="fab fa-weixin"></i> wx_jisumoto</p>
+            </div>
+            <div class="footer-section">
+                <h3>营业时间</h3>
+                <p>周一至周五: 9:00 - 18:00</p>
+                <p>周六至周日: 10:00 - 16:00</p>
+            </div>
+            <div class="footer-section">
+                <h3>关注我们</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fab fa-weibo"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="copyright">&copy; <a target="_blank" href="https://www.tomde.cloud">本站由www.tomde.cloud提供</a>
+            </p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // 暗黑模式切换
+
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = themeToggle.querySelector('i');
+
+    const darkTheme = localStorage.getItem('dark-theme')
+    if (darkTheme === 'true') {
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+        document.body.classList.toggle('light-theme');
+        document.body.classList.toggle('dark-theme');
+    }
+
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('light-theme');
+        document.body.classList.toggle('dark-theme');
+
+        if (document.body.classList.contains('dark-theme')) {
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+            localStorage.setItem('dark-theme', 'true')
+        } else {
+            themeIcon.classList.remove('fa-sun');
+            themeIcon.classList.add('fa-moon');
+            localStorage.setItem('dark-theme', 'false')
+        }
+    });
+
+    // 菜单切换
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+
+        if (navLinks.classList.contains('active')) {
+            hamburger.innerHTML = '<i class="fas fa-times"></i>';
+        } else {
+            hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+        }
+    });
+
+    // 倒计时功能
+    function updateCountdown() {
+        const days = document.querySelector('.countdown-item:nth-child(1) .countdown-number');
+        const hours = document.querySelector('.countdown-item:nth-child(2) .countdown-number');
+        const minutes = document.querySelector('.countdown-item:nth-child(3) .countdown-number');
+        const seconds = document.querySelector('.countdown-item:nth-child(4) .countdown-number');
+
+        let timeLeft = {
+            days: parseInt(days.textContent),
+            hours: parseInt(hours.textContent),
+            minutes: parseInt(minutes.textContent),
+            seconds: parseInt(seconds.textContent)
+        };
+
+        if (timeLeft.seconds > 0) {
+            timeLeft.seconds--;
+        } else {
+            timeLeft.seconds = 59;
+            if (timeLeft.minutes > 0) {
+                timeLeft.minutes--;
+            } else {
+                timeLeft.minutes = 59;
+                if (timeLeft.hours > 0) {
+                    timeLeft.hours--;
+                } else {
+                    timeLeft.hours = 23;
+                    if (timeLeft.days > 0) {
+                        timeLeft.days--;
+                    }
+                }
+            }
+        }
+
+        days.textContent = timeLeft.days.toString().padStart(2, '0');
+        hours.textContent = timeLeft.hours.toString().padStart(2, '0');
+        minutes.textContent = timeLeft.minutes.toString().padStart(2, '0');
+        seconds.textContent = timeLeft.seconds.toString().padStart(2, '0');
+    }
+
+    setInterval(updateCountdown, 1000);
+</script>
+</body>
+</html>

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh_Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>星耀KTV - 頂級娛樂體驗</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0c0c14;
+            --bg-darker: #080810;
+            --primary: #7e22ce;
+            --secondary: #ec4899;
+            --accent: #8b5cf6;
+            --text: #e5e7eb;
+            --text-secondary: #a1a1aa;
+            --card-bg: rgba(30, 30, 46, 0.6);
+            --neon-shadow: 0 0 10px var(--primary), 0 0 20px rgba(126, 34, 206, 0.5);
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+            background: linear-gradient(135deg, var(--bg-darker), var(--bg-dark));
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* 头部样式 */
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo {
+            font-size: 4rem;
+            font-weight: 900;
+            color: white;
+            text-shadow: var(--neon-shadow);
+            margin-bottom: 20px;
+            letter-spacing: 4px;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .slogan {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        .header-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: var(--neon-shadow);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(126, 34, 206, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--text);
+        }
+
+        /* 功能区样式 */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(126, 34, 206, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(126, 34, 206, 0.5);
+            box-shadow: var(--neon-shadow);
+        }
+
+        .feature-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+            text-shadow: 0 0 10px rgba(236, 72, 153, 0.7);
+        }
+
+        .feature-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        .feature-desc {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* 套餐区样式 */
+        .packages {
+            margin: 80px 0;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 50px;
+        }
+
+        .package-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .package-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px 30px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(126, 34, 206, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .package-card:hover {
+            transform: scale(1.03);
+            box-shadow: var(--neon-shadow);
+        }
+
+        .package-card.popular {
+            border: 2px solid var(--secondary);
+            transform: scale(1.05);
+        }
+
+        .package-card.popular::before {
+            content: '熱門';
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: var(--secondary);
+            color: white;
+            padding: 5px 40px;
+            font-weight: bold;
+            transform: rotate(45deg);
+            font-size: 0.9rem;
+        }
+
+        .package-name {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+
+        .package-price {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            color: var(--secondary);
+            text-shadow: 0 0 10px rgba(236, 72, 153, 0.5);
+        }
+
+        .package-price span {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+        }
+
+        .package-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .package-features li {
+            padding: 10px 0;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+        }
+
+        .package-features li i {
+            color: var(--primary);
+            margin-right: 10px;
+        }
+
+        /* 联系区样式 */
+        .contact {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 60px;
+            margin: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(126, 34, 206, 0.2);
+        }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .info-item {
+            text-align: center;
+        }
+
+        .info-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+
+        .info-title {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .info-detail {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+        }
+
+        /* 页脚样式 */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--text-secondary);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 40px;
+        }
+
+        footer a{
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 20px 0;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            color: var(--text);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            transform: translateY(-5px);
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 3rem;
+            }
+            
+            .slogan {
+                font-size: 1.2rem;
+            }
+            
+            .header-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .contact {
+                padding: 40px 20px;
+            }
+            
+            .package-card.popular {
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 2.5rem;
+            }
+            
+            .feature-card, .package-card {
+                padding: 25px 20px;
+            }
+            
+            .package-price {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* 霓虹灯动画效果 */
+        @keyframes neonPulse {
+            0%, 100% {
+                text-shadow: 0 0 10px var(--primary), 0 0 20px rgba(126, 34, 206, 0.5);
+            }
+            50% {
+                text-shadow: 0 0 15px var(--primary), 0 0 30px var(--primary), 0 0 40px rgba(126, 34, 206, 0.8);
+            }
+        }
+
+        .neon {
+            animation: neonPulse 2s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="logo neon">GZ星耀<span>KTV</span></h1>
+            <p class="slogan">廣州最頂級的K歌娛樂體驗 · 專業音響設備 · 上萬首熱門歌曲 · 豪華包廂享受</p>
+            <div class="header-buttons">
+                <button class="btn">立即預約</button>
+                <button class="btn btn-outline">查看包廂</button>
+            </div>
+        </header>
+
+        <section class="features">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-microphone-alt"></i>
+                </div>
+                <h3 class="feature-title">專業音響設備</h3>
+                <p class="feature-desc">採用國際頂級音響品牌，專業級麥克風與調音設備，打造完美演唱體驗</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-music"></i>
+                </div>
+                <h3 class="feature-title">海量歌曲庫</h3>
+                <p class="feature-desc">超過50,000首最新熱門歌曲，每月更新，包含國語、台語、粵語、英語、日韓歌曲</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-cocktail"></i>
+                </div>
+                <h3 class="feature-title">精緻餐飲服務</h3>
+                <p class="feature-desc">專業調酒師現場調製創意飲品，提供多樣化精緻餐點與美味小食</p>
+            </div>
+        </section>
+
+        <section class="packages">
+            <h2 class="section-title">豪華包廂套餐</h2>
+            <p class="section-subtitle">多種套餐選擇，滿足不同人數與預算需求，歡唱時段彈性選擇</p>
+            
+            <div class="package-cards">
+                <div class="package-card">
+                    <h3 class="package-name">精緻小包</h3>
+                    <div class="package-price">￥1,28<span>/3小時</span></div>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> 容納2-4人</li>
+                        <li><i class="fas fa-check"></i> 歡唱3小時</li>
+                        <li><i class="fas fa-check"></i> 飲料無限暢飲</li>
+                        <li><i class="fas fa-check"></i> 精緻小點心兩份</li>
+                        <li><i class="fas fa-check"></i> 免費Wi-Fi</li>
+                    </ul>
+                    <button class="btn">立即預訂</button>
+                </div>
+                
+                <div class="package-card popular">
+                    <h3 class="package-name">豪華中包</h3>
+                    <div class="package-price">￥2,38<span>/4小時</span></div>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> 容納5-8人</li>
+                        <li><i class="fas fa-check"></i> 歡唱4小時</li>
+                        <li><i class="fas fa-check"></i> 飲料無限暢飲</li>
+                        <li><i class="fas fa-check"></i> 精緻拼盤兩份</li>
+                        <li><i class="fas fa-check"></i> 免費Wi-Fi</li>
+                        <li><i class="fas fa-check"></i> 專屬服務鈴</li>
+                    </ul>
+                    <button class="btn">立即預訂</button>
+                </div>
+                
+                <div class="package-card">
+                    <h3 class="package-name">尊榮大包</h3>
+                    <div class="package-price">￥3,88<span>/5小時</span></div>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> 容納10-15人</li>
+                        <li><i class="fas fa-check"></i> 歡唱5小時</li>
+                        <li><i class="fas fa-check"></i> 飲料無限暢飲</li>
+                        <li><i class="fas fa-check"></i> 豪華拼盤三份</li>
+                        <li><i class="fas fa-check"></i> 免費Wi-Fi</li>
+                        <li><i class="fas fa-check"></i> 專屬服務鈴</li>
+                        <li><i class="fas fa-check"></i> 獨立洗手間</li>
+                    </ul>
+                    <button class="btn">立即預訂</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact">
+            <h2 class="section-title">聯絡我們</h2>
+            <p class="section-subtitle">預約包廂、活動洽詢或任何問題，歡迎隨時聯繫我們</p>
+            
+            <div class="contact-info">
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3 class="info-title">地址</h3>
+                    <p class="info-detail">廣州市南沙區科技娛樂城88號</p>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h3 class="info-title">電話</h3>
+                    <p class="info-detail">020 6666-8888</p>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="info-title">營業時間</h3>
+                    <p class="info-detail">週一至週四: 12:00-03:00<br>週五至週日: 12:00-05:00</p>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-weixin"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+                <a href="#"><i class="fab fa-weibo"></i></a>
+                <a href="#"><i class="fab fa-bilibili"></i></a>
+            </div>
+            <p><a href="https://tomde.cloud/" target="_blank">本站由Tomde.cloud提供</a></p>
+        </footer>
+    </div>
+</body>
+</html>

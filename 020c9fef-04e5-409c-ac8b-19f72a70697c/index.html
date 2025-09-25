@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>科技创新协会 - 连接未来</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c6fbb;
+            --secondary-color: #3498db;
+            --text-color: #333;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --header-bg: rgba(255, 255, 255, 0.9);
+            --footer-bg: #2c3e50;
+            --border-color: #e0e0e0;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        .dark-mode {
+            --primary-color: #4a9dff;
+            --secondary-color: #64b5f6;
+            --text-color: #e0e0e0;
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --header-bg: rgba(30, 30, 30, 0.95);
+            --footer-bg: #0d1b2a;
+            --border-color: #333;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: var(--transition);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 头部样式 */
+        header {
+            background-color: var(--header-bg);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .header-content-p {
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+        }
+
+        .nav-show {
+            display: block;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        nav a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover:after {
+            width: 100%;
+        }
+
+        .header-buttons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .mode-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .dark-mode .mode-toggle {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 7px 19px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .bars {
+            display: none;
+            color: var(--text-color);
+        }
+
+        /* 英雄区域 */
+        .hero {
+            padding: 100px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero:before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(44, 111, 187, 0.1) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        .dark-mode .hero:before {
+            background: radial-gradient(circle, rgba(74, 157, 255, 0.1) 0%, transparent 70%);
+        }
+
+        .hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--text-color);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: var(--secondary-color);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        /* 关于区域 */
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            max-width: 700px;
+            margin: 20px auto 0;
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            margin-bottom: 25px;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* 服务区域 */
+        .services {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+
+        .dark-mode .services {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+        }
+
+        .service-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+        }
+
+        /* 活动区域 */
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .event-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .event-image {
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .event-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .event-card:hover .event-image img {
+            transform: scale(1.05);
+        }
+
+        .event-content {
+            padding: 25px;
+        }
+
+        .event-date {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .event-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+        }
+
+        /* 页脚 */
+        footer {
+            background: var(--footer-bg);
+            color: #fff;
+            padding: 70px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-color);
+        }
+
+        .footer-column p {
+            margin-bottom: 20px;
+            color: #b0b0b0;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            color: #b0b0b0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #b0b0b0;
+            font-size: 0.9rem;
+        }
+
+        .copyright a{
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .bars{
+                display: block;
+            }
+
+            nav {
+                display: none;
+            }
+            
+            .hero h2 {
+                font-size: 2.8rem;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .about-image {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            .bars{
+                display: block;
+            }
+
+            .nav {
+                display: none;
+            }
+            
+            nav ul {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .section {
+                padding: 70px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+        
+            nav ul {
+                gap: 10px;
+            }
+            
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部 -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-atom"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h3>科技创新协会</h3>
+                        <p>探索未来 · 创新无限</p>
+                    </div>
+                </div>
+                
+                <nav>
+                    <ul>
+                        <li><a href="#home">首页</a></li>
+                        <li><a href="#about">关于我们</a></li>
+                        <li><a href="#services">服务项目</a></li>
+                        <li><a href="#events">活动</a></li>
+                        <li><a href="#contact">联系我们</a></li>
+                        <li><button href="#" class="btn">加入我们</button></li>
+                    </ul>
+                </nav>
+                
+                <div class="header-buttons">
+                    <button class="mode-toggle" id="modeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <a href="#" id="nav-show-hide-btn" class="bars"><i class="fas fa-bars"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h2>连接创新者，创造未来科技</h2>
+            <p>科技创新协会致力于推动技术发展，培养创新人才，促进学术交流</p>
+            <div class="hero-buttons">
+                <a href="#" class="btn">了解更多</a>
+                <a href="#" class="btn btn-outline">近期活动</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于区域 -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>关于我们</h2>
+                <p>科技创新协会成立于2010年，是一个非营利性组织，致力于推动科技创新和人才培养</p>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>我们是谁？</h3>
+                    <p>科技创新协会由一群热爱技术的专业人士创立，旨在为科技爱好者提供一个交流、学习和成长的平台。我们相信技术可以改变世界，而创新是推动社会进步的核心动力。</p>
+                    <p>协会拥有超过500名活跃会员，包括学生、教师、工程师和创业者。我们定期举办技术研讨会、创新工作坊和行业交流活动，为会员提供学习和展示的机会。</p>
+                    <p>我们的使命是培养创新思维，推动技术发展，连接行业资源，帮助会员实现个人成长和职业发展。</p>
+                    <a href="#" class="btn" style="margin-top: 20px;">了解更多</a>
+                </div>
+                
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="协会成员讨论">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 服务区域 -->
+    <section class="section services" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>我们的服务</h2>
+                <p>我们提供多样化的服务项目，满足不同会员的需求</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>技术培训</h3>
+                    <p>提供前沿技术领域的专业培训课程，包括人工智能、大数据、云计算等，帮助会员提升技能。</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>行业交流</h3>
+                    <p>定期举办行业交流会和技术沙龙，连接会员与行业专家，拓展人脉资源。</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>创新孵化</h3>
+                    <p>为有潜力的创新项目提供孵化支持，包括资金、导师指导和资源对接。</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3>职业发展</h3>
+                    <p>提供职业规划咨询、简历指导和就业推荐，帮助会员实现职业目标。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 活动区域 -->
+    <section class="section" id="events">
+        <div class="container">
+            <div class="section-title">
+                <h2>近期活动</h2>
+                <p>参与我们的活动，与行业专家交流，拓展视野</p>
+            </div>
+            
+            <div class="events-grid">
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="AI技术研讨会">
+                    </div>
+                    <div class="event-content">
+                        <span class="event-date">2023年10月15日</span>
+                        <h3>AI前沿技术研讨会</h3>
+                        <p>探讨人工智能领域的最新研究成果和发展趋势，特邀行业专家分享经验。</p>
+                        <a href="#" class="btn" style="margin-top: 15px;">立即报名</a>
+                    </div>
+                </div>
+                
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="创新工作坊">
+                    </div>
+                    <div class="event-content">
+                        <span class="event-date">2023年11月5日</span>
+                        <h3>创新思维工作坊</h3>
+                        <p>学习创新思维方法和工具，通过实践案例提升解决问题的能力。</p>
+                        <a href="#" class="btn" style="margin-top: 15px;">立即报名</a>
+                    </div>
+                </div>
+                
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="创业大赛">
+                    </div>
+                    <div class="event-content">
+                        <span class="event-date">2023年12月10日</span>
+                        <h3>青年创业大赛</h3>
+                        <p>面向青年创业者的年度比赛，优胜团队将获得孵化支持和创业资金。</p>
+                        <a href="#" class="btn" style="margin-top: 15px;">立即报名</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>科技创新协会</h3>
+                    <p>致力于推动科技创新，培养创新人才，促进学术交流的非营利组织。</p>
+                    <div class="social-links">
+                        <a href="#"><svg t="1754325406493" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5905" width="32" height="32"><path d="M867.265306 867.265306c-3.134694 0-6.791837-1.044898-9.92653-2.612245l-54.857143-28.734694c-39.183673 20.37551-83.069388 31.346939-128.522449 31.346939-141.061224 0-256-102.922449-256-229.877551s114.938776-229.877551 256-229.877551 256 102.922449 256 229.877551c0 50.677551-18.808163 100.310204-53.289796 140.538776l10.971428 65.306122c1.567347 7.836735-2.089796 15.673469-8.359183 20.37551-3.657143 2.089796-7.836735 3.657143-12.016327 3.657143z m-193.306122-417.959184c-118.073469 0-214.204082 84.114286-214.204082 188.081633s96.130612 188.081633 214.204082 188.081633c42.318367 0 83.069388-10.971429 118.073469-31.346939 6.269388-3.657143 14.106122-3.657143 20.37551-0.522449l27.167347 14.106122-5.746939-33.436734c-1.044898-6.269388 1.044898-13.061224 5.22449-17.763266 31.346939-33.436735 49.110204-76.277551 49.110204-119.640816 0-103.444898-96.130612-187.559184-214.204081-187.559184z" fill="#ffffff" p-id="5906"></path><path d="M579.918367 579.395918m-31.346938 0a31.346939 31.346939 0 1 0 62.693877 0 31.346939 31.346939 0 1 0-62.693877 0Z" fill="#ffffff" p-id="5907"></path><path d="M768 579.395918m-31.346939 0a31.346939 31.346939 0 1 0 62.693878 0 31.346939 31.346939 0 1 0-62.693878 0Z" fill="#ffffff" p-id="5908"></path><path d="M292.571429 344.293878m-36.571429 0a36.571429 36.571429 0 1 0 73.142857 0 36.571429 36.571429 0 1 0-73.142857 0Z" fill="#ffffff" p-id="5909"></path><path d="M512 344.293878m-36.571429 0a36.571429 36.571429 0 1 0 73.142858 0 36.571429 36.571429 0 1 0-73.142858 0Z" fill="#ffffff" p-id="5910"></path><path d="M166.138776 709.485714c-4.179592 0-8.881633-1.567347-12.538776-4.179592-6.269388-4.702041-9.404082-12.538776-8.359184-20.37551l14.106123-81.502041C117.028571 554.840816 94.040816 494.759184 94.040816 433.110204 94.040816 280.555102 232.489796 156.734694 402.285714 156.734694c80.979592 0 157.257143 27.689796 215.24898 78.889796 58.514286 51.2 91.428571 119.640816 92.995918 193.306122 0 5.746939-2.089796 11.493878-6.269388 15.67347s-9.926531 6.269388-15.673469 5.746938c-5.22449-0.522449-9.926531-0.522449-14.106122-0.522449-118.073469 0-214.204082 84.114286-214.204082 188.081633 0 14.106122 2.089796 28.734694 5.746939 42.840816 1.567347 5.746939 0.522449 12.016327-2.612245 17.240817s-8.881633 8.359184-14.628572 8.881632c-15.15102 2.089796-30.302041 3.134694-45.453061 3.134694-55.902041 0-109.714286-13.583673-157.257143-38.661224l-68.963265 36.571428c-4.179592 0.522449-7.836735 1.567347-10.971428 1.567347z m78.889795-83.591836c3.657143 0 7.314286 1.044898 10.44898 2.612244 48.587755 28.212245 106.057143 41.795918 164.571429 38.138776-1.567347-9.926531-2.089796-19.853061-2.089796-29.779592 0-124.865306 111.281633-226.742857 249.208163-229.877551-14.628571-117.028571-128.522449-208.979592-264.881633-208.979592-146.808163 0-266.44898 105.012245-266.448979 234.579592 0 54.334694 21.942857 107.62449 61.12653 149.420408 4.702041 4.702041 6.269388 11.493878 5.22449 17.763266l-8.359184 50.155102 41.795919-21.942858c3.134694-1.044898 6.269388-2.089796 9.404081-2.089795z" fill="#ffffff" p-id="5911"></path></svg></a>
+                        <a href="#"><svg t="1754325207928" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4483" width="32" height="32"><path d="M448.96 678.048c-94.368 4.432-170.656-42.912-170.656-105.872 0-63.04 76.288-113.6 170.672-117.968 94.416-4.352 170.88 34.56 170.88 97.488 0 62.976-76.464 122.08-170.88 126.352M649.92 473.456c-22.432-4.352-11.52-16.416-11.52-16.416s21.92-36.16-4.352-62.432c-32.56-32.56-111.68 4.16-111.68 4.16-30.224 9.36-22.224-4.304-17.952-27.536 0-27.376-9.376-73.744-89.888-46.352-80.4 27.52-149.456 123.968-149.456 123.968-48.032 64.064-41.664 113.584-41.664 113.584 11.984 109.344 128.16 139.36 218.512 146.464 95.072 7.456 223.36-32.768 262.288-115.408 38.896-82.784-31.808-115.536-54.288-120.032m-187.76 99.408c-6.016 4.48-13.408 3.872-16.56-1.52-3.328-5.248-2.08-13.648 4-18.08 7.024-5.232 14.336-3.728 17.504 1.52 3.168 5.376 0.912 13.44-4.944 18.08m-55.968 47.648c-17.728 2.08-32-8.128-32-22.96 0-14.752 12.688-30.224 30.432-32.064 20.336-1.936 33.6 9.792 33.6 24.624 0 14.752-14.384 28.4-32.032 30.4m23.952-124.768c-94.912 11.104-83.952 100-83.952 100s-0.96 28.16 25.44 42.512c55.552 30.08 112.72 11.872 141.632-25.44 28.896-37.328 11.936-128.112-83.12-117.072m265.984-60.768a15.456 15.456 0 0 0 15.44-14.704c11.6-104.224-85.392-86.288-85.392-86.288a15.52 15.52 0 0 0-15.52 15.664c0 8.544 6.896 15.52 15.52 15.52 69.68-15.392 54.288 54.272 54.288 54.272 0 8.624 7.04 15.52 15.68 15.52m-11.312-181.92c-33.536-7.856-68.032-1.072-77.712 0.768-0.736 0.08-1.44 0.768-2.112 0.912-0.336 0.064-0.544 0.416-0.544 0.416-9.536 2.688-16.48 11.52-16.48 21.92 0 12.432 10.048 22.64 22.608 22.64 0 0 12.208-1.632 20.48-4.88 8.208-3.296 77.68-2.464 112.16 55.488 18.832 42.272 8.288 70.576 6.976 75.136 0 0-4.48 10.976-4.48 21.792 0 12.48 10.08 20.336 22.56 20.336 10.4 0 19.168-1.44 21.728-19.056h0.128c37.04-123.456-45.312-181.456-105.312-195.472M511.504 48C255.52 48 48 255.52 48 511.456c0 256.032 207.52 463.52 463.504 463.52s463.52-207.488 463.52-463.52C975.008 255.52 767.472 48 511.488 48m-0.704 24.832c241.504 0 437.968 196.432 437.968 437.92 0 241.552-196.48 438-437.968 438-241.536 0-438.016-196.448-438.016-438 0-241.488 196.48-437.92 438.016-437.92" fill="#ffffff" p-id="4484"></path></svg></i></a>
+                        <a href="#"><svg t="1754325479316" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7510" width="32" height="32"><path d="M820.07316303 448.19829416c-60.83250046 0-119.99934912-19.77056265-168.66534949-56.34248256v255.1344037c0 130.28293849-100.37362576 235.79835892-224.21121596 235.79835892S202.9853816 777.27315379 202.9853816 646.9902153c0-130.28293849 100.37362576-235.79835892 224.21121598-235.79835891 12.38375903 0 24.40541983 1.08629466 36.13740205 3.11404466v135.13505458c-11.22504473-4.41759825-23.17428589-6.6626072-35.19594669-6.66260719-55.25618792 0-100.08394718 47.07276821-100.08394718 105.22574187 0 58.08055401 44.82775927 105.22574187 100.08394718 105.22574187 55.18376827 0 100.01152754-47.14518787 100.01152754-105.22574187V141.21142578H653.21830464c0 97.40442038 75.09917021 176.34183169 167.72389412 176.34183169v130.57261704l-0.86903573 0.07241966" p-id="7511" fill="#ffffff"></path></svg></a>
+                        <a href="#"><svg t="1754325646242" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9994" width="32" height="32"><path d="M512 12.65664c277.11488 0 501.76 224.64512 501.76 501.76 0 277.0944-224.64512 501.76-501.76 501.76S10.24 791.51104 10.24 514.41664C10.24 237.30176 234.88512 12.65664 512 12.65664z m0 20.48c-265.80992 0-481.28 215.47008-481.28 481.28s215.47008 481.28 481.28 481.28 481.28-215.47008 481.28-481.28-215.47008-481.28-481.28-481.28z m-123.5968 244.6336v0.02048l82.98496 83.02592h81.18272l83.02592-83.00544a25.6 25.6 0 1 1 36.22912 36.2496l-46.83776 46.75584h53.41184a89.6 89.6 0 0 1 89.6 89.6v204.8a89.6 89.6 0 0 1-89.6 89.6h-332.8a89.6 89.6 0 0 1-89.6-89.6v-204.8a89.6 89.6 0 0 1 89.6-89.6h53.37088l-46.7968-46.81728a25.6 25.6 0 1 1 36.22912-36.2496z m289.9968 134.2464h-332.8c-19.78368 0-36.33152 15.03232-38.21568 34.7136l-0.18432 3.6864v204.8c0 19.78368 15.03232 36.31104 34.7136 38.21568l3.6864 0.18432h332.8c19.78368 0 36.33152-15.03232 38.21568-34.7136l0.18432-3.6864v-204.8c0-21.21728-17.2032-38.4-38.4-38.4zM409.6 488.81664c14.1312 0 25.6 11.4688 25.6 25.6v51.2a25.6 25.6 0 0 1-51.2 0v-51.2c0-14.1312 11.4688-25.6 25.6-25.6z m204.8 0c14.1312 0 25.6 11.4688 25.6 25.6v51.2a25.6 25.6 0 0 1-51.2 0v-51.2c0-14.1312 11.4688-25.6 25.6-25.6z" p-id="9995" fill="#ffffff"></path></svg></a>
+                    </div>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>快速链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">首页</a></li>
+                        <li><a href="#about">关于我们</a></li>
+                        <li><a href="#services">服务项目</a></li>
+                        <li><a href="#events">近期活动</a></li>
+                        <li><a href="#">加入我们</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>联系我们</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 广东省广州市南沙区南沙科技园888号</p>
+                    <p><i class="fas fa-phone"></i> +86 020 8888 6666</p>
+                    <p><i class="fas fa-envelope"></i> hub@tech.org</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>订阅资讯</h3>
+                    <p>订阅我们的电子报，获取最新活动和技术资讯</p>
+                    <form>
+                        <input type="email" placeholder="输入您的邮箱" style="width:100%; padding:12px; margin:10px 0; border-radius:5px; border:none;">
+                        <button type="submit" class="btn" style="width:100%;">订阅</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; <a target="_blank" href="http://tomde.cloud">本站由Tomde.cloud提供</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 暗黑模式切换
+        const modeToggle = document.getElementById('modeToggle');
+        const body = document.body;
+        
+        // 检查本地存储中的模式设置
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            body.classList.add('dark-mode');
+            modeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+        
+        modeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('darkMode', 'enabled');
+                modeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                localStorage.setItem('darkMode', null);
+                modeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        });
+
+
+        // 平板/手机模式导航
+        document.getElementById('nav-show-hide-btn').addEventListener('click', ()=> {
+            document.getElementsByClassName('header-content')[0].classList.toggle('header-content-p');
+            document.getElementsByTagName('nav')[0].classList.toggle('nav-show');
+        })
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

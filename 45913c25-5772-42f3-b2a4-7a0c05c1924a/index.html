@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>暗黑主题照片墙</title>
+    <style>
+        /* 基础重置与暗黑主题变量 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #121212;
+            --bg-secondary: #1e1e1e;
+            --text-primary: #e6e6e6;
+            --text-secondary: #a0a0a0;
+            --accent-color: #7e57c2;
+            --card-bg: #252525;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            --modal-overlay: rgba(0, 0, 0, 0.85);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* 标题样式 */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px 0;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* 照片墙网格布局 */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+
+        .photo-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7);
+        }
+
+        .photo-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .photo-card:hover .photo-img {
+            transform: scale(1.05);
+        }
+
+        .photo-info {
+            padding: 15px;
+        }
+
+        .photo-title {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .photo-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        /* 模态框样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--modal-overlay);
+            z-index: 1000;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 1;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            overflow: hidden;
+            position: relative;
+            background-color: var(--bg-secondary);
+            border-radius: 12px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.8);
+            animation: zoomIn 0.3s ease;
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal-img {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            z-index: 1001;
+        }
+
+        .modal-close:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-info {
+            padding: 20px;
+            color: var(--text-primary);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .modal-desc {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* 页脚样式 */
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 20px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                gap: 15px;
+            }
+
+            .photo-img {
+                height: 180px;
+            }
+
+            .modal-content {
+                max-width: 95%;
+                max-height: 95%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .header {
+                margin-bottom: 20px;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .modal-info {
+                padding: 15px;
+            }
+
+            .modal-title {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1>视觉记忆</h1>
+    <p>捕捉生活中的每一刻精彩瞬间 - 点击图片查看大图</p>
+</div>
+
+<div class="gallery">
+    <!-- 照片1 -->
+    <div class="photo-card"
+         onclick="openModal('https://images.unsplash.com/photo-1506744038136-46273834b3fb', '宁静山脉', '晨曦中的山脉，宁静而壮丽，展现大自然的神奇魅力。')">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=200" alt="山脉景色" class="photo-img">
+        <div class="photo-info">
+            <h3 class="photo-title">宁静山脉</h3>
+            <p class="photo-desc">晨曦中的山脉，宁静而壮丽...</p>
+        </div>
+    </div>
+
+    <!-- 照片2 -->
+    <div class="photo-card"
+         onclick="openModal('https://images.unsplash.com/photo-1518837695005-2083093ee35b', '蔚蓝海洋', '无边无际的海洋，波涛汹涌，充满力量与自由。')">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=200" alt="海洋景色" class="photo-img">
+        <div class="photo-info">
+            <h3 class="photo-title">蔚蓝海洋</h3>
+            <p class="photo-desc">无边无际的海洋，波涛汹涌...</p>
+        </div>
+    </div>
+
+    <!-- 照片3 -->
+    <div class="photo-card"
+         onclick="openModal('https://images.unsplash.com/photo-1475924156734-496f6cac6ec1', '神秘森林', '阳光穿透茂密树叶，森林中光影交错，如同仙境。')">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=200" alt="森林景色" class="photo-img">
+        <div class="photo-info">
+            <h3 class="photo-title">神秘森林</h3>
+            <p class="photo-desc">阳光穿透茂密树叶，森林中光影交错...</p>
+        </div>
+    </div>
+
+    <!-- 照片4 -->
+    <div class="photo-card"
+         onclick="openModal('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b', '雪山之巅', '白雪覆盖的山峰，在阳光下闪耀着圣洁的光芒。')">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=200" alt="雪山景色" class="photo-img">
+        <div class="photo-info">
+            <h3 class="photo-title">雪山之巅</h3>
+            <p class="photo-desc">白雪覆盖的山峰，在阳光下闪耀...</p>
+        </div>
+    </div>
+
+    <!-- 照片5 -->
+    <div class="photo-card"
+         onclick="openModal('https://images.unsplash.com/photo-1505142468610-359e7d316be0', '飞流瀑布', '水流从高处倾泻而下，形成壮观的瀑布景观。')">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=200" alt="瀑布景色" class="photo-img">
+        <div class="photo-info">
+            <h3 class="photo-title">飞流瀑布</h3>
+            <p class="photo-desc">水流从高处倾泻而下，形成壮观...</p>
+        </div>
+    </div>
+
+    <!-- 照片6 -->
+    <div class="photo-card"
+         onclick="openModal('https://images.unsplash.com/photo-1418065460487-3e41a6c84dc5', '金色沙漠', '无垠的沙漠，沙丘起伏，展现大自然的辽阔与神秘。')">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1418065460487-3e41a6c84dc5?w=200" alt="沙漠景色" class="photo-img">
+        <div class="photo-info">
+            <h3 class="photo-title">金色沙漠</h3>
+            <p class="photo-desc">无垠的沙漠，沙丘起伏，展现大自然...</p>
+        </div>
+    </div>
+
+    <!-- 照片7 -->
+    <div class="photo-card"
+         onclick="openModal('https://images.unsplash.com/photo-1506260408121-e353d10b87c7', '梦幻极光', '夜空中舞动的绿色极光，如同大自然的神秘舞蹈。')">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1506260408121-e353d10b87c7?w=200" alt="北极光" class="photo-img">
+        <div class="photo-info">
+            <h3 class="photo-title">梦幻极光</h3>
+            <p class="photo-desc">夜空中舞动的绿色极光，如同...</p>
+        </div>
+    </div>
+
+    <!-- 照片8 -->
+    <div class="photo-card"
+         onclick="openModal('https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd', '璀璨星空', '无数星辰点缀夜空，银河横跨天际，令人震撼。')">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?w=200" alt="星空" class="photo-img">
+        <div class="photo-info">
+            <h3 class="photo-title">璀璨星空</h3>
+            <p class="photo-desc">无数星辰点缀夜空，银河横跨天际...</p>
+        </div>
+    </div>
+
+    <!-- 照片9 -->
+    <div class="photo-card"
+         onclick="openModal('https://images.unsplash.com/photo-1506744038136-46273834b3fb', '宁静山脉', '晨曦中的山脉，宁静而壮丽，展现大自然的神奇魅力。')">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=200" alt="山脉景色" class="photo-img">
+        <div class="photo-info">
+            <h3 class="photo-title">宁静山脉</h3>
+            <p class="photo-desc">晨曦中的山脉，宁静而壮丽...</p>
+        </div>
+    </div>
+
+    <!-- 照片10 -->
+    <div class="photo-card"
+         onclick="openModal('https://images.unsplash.com/photo-1518837695005-2083093ee35b', '蔚蓝海洋', '无边无际的海洋，波涛汹涌，充满力量与自由。')">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=200" alt="海洋景色" class="photo-img">
+        <div class="photo-info">
+            <h3 class="photo-title">蔚蓝海洋</h3>
+            <p class="photo-desc">无边无际的海洋，波涛汹涌...</p>
+        </div>
+    </div>
+
+    <!-- 照片11 -->
+    <div class="photo-card"
+         onclick="openModal('https://images.unsplash.com/photo-1475924156734-496f6cac6ec1', '神秘森林', '阳光穿透茂密树叶，森林中光影交错，如同仙境。')">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=200" alt="森林景色" class="photo-img">
+        <div class="photo-info">
+            <h3 class="photo-title">神秘森林</h3>
+            <p class="photo-desc">阳光穿透茂密树叶，森林中光影交错...</p>
+        </div>
+    </div>
+
+    <!-- 照片12 -->
+    <div class="photo-card"
+         onclick="openModal('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b', '雪山之巅', '白雪覆盖的山峰，在阳光下闪耀着圣洁的光芒。')">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=200" alt="雪山景色" class="photo-img">
+        <div class="photo-info">
+            <h3 class="photo-title">雪山之巅</h3>
+            <p class="photo-desc">白雪覆盖的山峰，在阳光下闪耀...</p>
+        </div>
+    </div>
+
+    <!-- 照片13 -->
+    <div class="photo-card"
+         onclick="openModal('https://images.unsplash.com/photo-1505142468610-359e7d316be0', '飞流瀑布', '水流从高处倾泻而下，形成壮观的瀑布景观。')">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=200" alt="瀑布景色" class="photo-img">
+        <div class="photo-info">
+            <h3 class="photo-title">飞流瀑布</h3>
+            <p class="photo-desc">水流从高处倾泻而下，形成壮观...</p>
+        </div>
+    </div>
+
+    <!-- 照片14 -->
+    <div class="photo-card"
+         onclick="openModal('https://images.unsplash.com/photo-1418065460487-3e41a6c84dc5', '金色沙漠', '无垠的沙漠，沙丘起伏，展现大自然的辽阔与神秘。')">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1418065460487-3e41a6c84dc5?w=200" alt="沙漠景色" class="photo-img">
+        <div class="photo-info">
+            <h3 class="photo-title">金色沙漠</h3>
+            <p class="photo-desc">无垠的沙漠，沙丘起伏，展现大自然...</p>
+        </div>
+    </div>
+
+    <!-- 照片15 -->
+    <div class="photo-card"
+         onclick="openModal('https://images.unsplash.com/photo-1506260408121-e353d10b87c7', '梦幻极光', '夜空中舞动的绿色极光，如同大自然的神秘舞蹈。')">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1506260408121-e353d10b87c7?w=200" alt="北极光" class="photo-img">
+        <div class="photo-info">
+            <h3 class="photo-title">梦幻极光</h3>
+            <p class="photo-desc">夜空中舞动的绿色极光，如同...</p>
+        </div>
+    </div>
+
+    <!-- 照片16 -->
+    <div class="photo-card"
+         onclick="openModal('https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd', '璀璨星空', '无数星辰点缀夜空，银河横跨天际，令人震撼。')">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?w=200" alt="星空" class="photo-img">
+        <div class="photo-info">
+            <h3 class="photo-title">璀璨星空</h3>
+            <p class="photo-desc">无数星辰点缀夜空，银河横跨天际...</p>
+        </div>
+    </div>
+</div>
+
+<!-- 模态框 -->
+<div class="modal" id="imageModal">
+    <div class="modal-close" onclick="closeModal()">×</div>
+    <div class="modal-content">
+        <img class="modal-img" id="modalImage" src="" alt="">
+        <div class="modal-info">
+            <h3 class="modal-title" id="modalTitle"></h3>
+            <p class="modal-desc" id="modalDesc"></p>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <p>© <a href="https://www.tomde.cloud" target="_blank">本站由Tomde.cloud提供</a> | 所有图片来源于 Unsplash</p>
+</div>
+
+<script>
+    // 获取模态框元素
+    const modal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+
+    // 打开模态框函数
+    function openModal(imageSrc, title, description) {
+        modalImage.src = imageSrc;
+        modalTitle.textContent = title;
+        modalDesc.textContent = description;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // 防止背景滚动
+    }
+
+    // 关闭模态框函数
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto'; // 恢复背景滚动
+    }
+
+    // 点击模态框背景关闭
+    modal.addEventListener('click', function (event) {
+        if (event.target === modal) {
+            closeModal();
+        }
+    });
+
+    // 按ESC键关闭模态框
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+</script>
+</body>
+</html>

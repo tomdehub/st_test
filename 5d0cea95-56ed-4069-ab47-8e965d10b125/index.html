@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>果味森森 - 高端水果专卖</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-bg: #121212;
+            --secondary-bg: #1e1e1e;
+            --accent-color: #c69476;
+            --accent-secondary: #1c981c;
+            --text-primary: #f0f0f0;
+            --text-secondary: #a0a0a0;
+        }
+
+        body {
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1380px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 头部样式 */
+        header {
+            padding: 40px 0;
+            text-align: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://img95.699pic.com/photo/60087/2407.jpg_wh860.jpg') no-repeat center center/cover;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            color: var(--accent-secondary);
+            text-shadow: 0 0 15px rgba(0, 204, 102, 0.5);
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, var(--accent-secondary), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+        }
+
+        .tagline {
+            font-size: 1.4rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        /* 特色区域样式 */
+        .feature-section {
+            padding: 60px 0;
+            background-color: var(--secondary-bg);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            color: var(--accent-color);
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--accent-secondary);
+        }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .feature {
+            background: linear-gradient(145deg, #1e1e1e, #252525);
+            border-radius: 15px;
+            padding: 25px;
+            width: 100%;
+            max-width: 350px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .feature i {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+
+        .feature h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--accent-secondary);
+        }
+
+        /* 产品展示样式 */
+        .products {
+            padding: 60px 0;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .product {
+            background: var(--secondary-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .product:hover {
+            transform: scale(1.03);
+        }
+
+        .product-img {
+            height: 200px;
+            background-color: #2c2c2c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .product-img i {
+            font-size: 4rem;
+            color: var(--accent-color);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-title {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--accent-secondary);
+        }
+
+        .product-desc {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        /* 促销区域样式 */
+        .promo {
+            padding: 80px 0;
+            background: linear-gradient(to right, #1a1a1a, #2d1a36);
+            text-align: center;
+        }
+
+        .promo-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .promo-title {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            color: #f44e4e;
+            font-family: 楷体,serif;
+        }
+
+        .promo-text {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: var(--text-primary);
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .countdown-item {
+            background: var(--primary-bg);
+            padding: 15px;
+            border-radius: 10px;
+            min-width: 80px;
+        }
+
+        .countdown-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .countdown-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--accent-color), var(--accent-secondary));
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(138, 43, 226, 0.6);
+        }
+
+        /* 联系区域样式 */
+        .contact {
+            padding: 60px 0;
+            background-color: var(--secondary-bg);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .contact-item {
+            text-align: center;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .contact-item i {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+
+        .contact-item h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--accent-secondary);
+        }
+
+        .contact-item p {
+            color: var(--text-secondary);
+        }
+
+        /* 页脚样式 */
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            background-color: var(--primary-bg);
+            color: var(--text-secondary);
+        }
+
+        .social-links {
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            display: inline-block;
+            margin: 0 15px;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .copyright a{
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .tagline {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .countdown {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- 头部区域 -->
+<header>
+    <div class="container">
+        <div class="logo">
+            <i class="fas fa-apple-alt"></i>
+        </div>
+        <h1>果味森森</h1>
+        <p class="tagline">新鲜直达 · 自然美味 · 品质生活</p>
+    </div>
+</header>
+
+<!-- 产品展示 -->
+<section class="products">
+    <div class="container">
+        <h2 class="section-title">热门水果</h2>
+        <div class="product-grid">
+            <div class="product">
+                <div class="product-img">
+                    <img src="https://ts3.tc.mm.bing.net/th/id/OIP-C._hv58S8BigFtqzY2_zx0QQHaE8?cb=thfc1&rs=1&pid=ImgDetMain&o=7&rm=3"
+                         alt="新疆葡萄" srcset="">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">新疆葡萄</h3>
+                    <p class="product-desc">甜度高达18度以上，无籽多汁，果肉紧实</p>
+                    <p class="product-price">¥128/斤</p>
+                </div>
+            </div>
+            <div class="product">
+                <div class="product-img">
+                    <img src="https://ts1.tc.mm.bing.net/th/id/R-C.73479d6c5bbbed2ce60462949ff1a4e9?rik=C0QMTXU%2fkvyJ7g&riu=http%3a%2f%2fn.sinaimg.cn%2ftranslate%2f155%2fw1080h675%2f20191008%2fe61c-ifrwayw6578042.jpg&ehk=ppX8g5mQNdljBs1VlSu2Tsz45pnsS4%2faS4wLQl%2f0btk%3d&risl=&pid=ImgRaw&r=0"
+                         alt="赣南脐橙" srcset="">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">赣南脐橙</h3>
+                    <p class="product-desc">果肉如鱼子酱般颗粒分明，口感独特，酸甜可口</p>
+                    <p class="product-price">¥198/盒</p>
+                </div>
+            </div>
+            <div class="product">
+                <div class="product-img">
+                    <img src="https://ts3.tc.mm.bing.net/th/id/OIP-C.DUo1O3aB1p8cPTJryZgrsAHaFa?cb=thfc1&rs=1&pid=ImgDetMain&o=7&rm=3"
+                         alt="" srcset="">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">猫山王榴莲</h3>
+                    <p class="product-desc">马来西亚原产，果肉金黄，口感绵密，味道浓郁</p>
+                    <p class="product-price">¥298/个</p>
+                </div>
+            </div>
+            <div class="product">
+                <div class="product-img">
+                    <img src="https://img.alicdn.com/i4/2213009722744/O1CN01Zvx78i1W8njWqsgbw_!!2213009722744.bmp"
+                         alt="" srcset="">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">电白千禧果</h3>
+                    <p class="product-desc">甜度高达18度以上，无籽多汁，果肉紧实</p>
+                    <p class="product-price">¥128/斤</p>
+                </div>
+            </div>
+            <div class="product">
+                <div class="product-img">
+                    <img src="https://img95.699pic.com/photo/60087/2407.jpg_wh860.jpg"
+                         alt="" srcset="">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">高州荔枝</h3>
+                    <p class="product-desc">果肉如鱼子酱般颗粒分明，口感独特，酸甜可口</p>
+                    <p class="product-price">¥198/盒</p>
+                </div>
+            </div>
+            <div class="product">
+                <div class="product-img">
+                    <img src="https://pic.ulecdn.com/item/user_800185486/desc20230525/8bbc84f7c4e6adb4_800x-1.jpg"
+                         alt="" srcset="">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">信宜三华李</h3>
+                    <p class="product-desc">信宜原产，果肉金黄，口感绵密，味道浓郁</p>
+                    <p class="product-price">¥298/个</p>
+                </div>
+            </div>
+            <div class="product">
+                <div class="product-img">
+                    <img src="https://ts3.tc.mm.bing.net/th/id/OIP-C._hv58S8BigFtqzY2_zx0QQHaE8?cb=thfc1&rs=1&pid=ImgDetMain&o=7&rm=3"
+                         alt="新疆葡萄" srcset="">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">新疆葡萄</h3>
+                    <p class="product-desc">甜度高达18度以上，无籽多汁，果肉紧实</p>
+                    <p class="product-price">¥128/斤</p>
+                </div>
+            </div>
+            <div class="product">
+                <div class="product-img">
+                    <img src="https://ts1.tc.mm.bing.net/th/id/R-C.73479d6c5bbbed2ce60462949ff1a4e9?rik=C0QMTXU%2fkvyJ7g&riu=http%3a%2f%2fn.sinaimg.cn%2ftranslate%2f155%2fw1080h675%2f20191008%2fe61c-ifrwayw6578042.jpg&ehk=ppX8g5mQNdljBs1VlSu2Tsz45pnsS4%2faS4wLQl%2f0btk%3d&risl=&pid=ImgRaw&r=0"
+                         alt="赣南脐橙" srcset="">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">赣南脐橙</h3>
+                    <p class="product-desc">果肉如鱼子酱般颗粒分明，口感独特，酸甜可口</p>
+                    <p class="product-price">¥198/盒</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 特色区域 -->
+<section class="feature-section">
+    <div class="container">
+        <h2 class="section-title">我们的特色</h2>
+        <div class="features">
+            <div class="feature">
+                <i class="fas fa-truck"></i>
+                <h3>新鲜直达</h3>
+                <p>我们与本地农场合作，每天清晨新鲜采摘，确保您品尝到最新鲜的水果。</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-leaf"></i>
+                <h3>有机种植</h3>
+                <p>所有水果均采用有机种植方式，无农药残留，让您吃得安心又健康。</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-gift"></i>
+                <h3>精美礼盒</h3>
+                <p>提供多种精美水果礼盒定制服务，是送礼和商务往来的最佳选择。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 促销区域 -->
+<section class="promo">
+    <div class="container">
+        <div class="promo-content">
+            <h2 class="promo-title">开业大促销</h2>
+            <p class="promo-text">新店开业期间，所有水果享受8折优惠！满100元免费配送！</p>
+
+            <div class="countdown">
+                <div class="countdown-item">
+                    <div class="countdown-number">2</div>
+                    <div class="countdown-label">天</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number">12</div>
+                    <div class="countdown-label">时</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number">45</div>
+                    <div class="countdown-label">分</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number">30</div>
+                    <div class="countdown-label">秒</div>
+                </div>
+            </div>
+
+            <a href="#" class="cta-button">立即购买</a>
+        </div>
+    </div>
+</section>
+
+<!-- 联系信息 -->
+<section class="contact">
+    <div class="container">
+        <h2 class="section-title">联系我们</h2>
+        <div class="contact-info">
+            <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>店铺地址</h3>
+                <p>广州市海珠区水果批发市场999号店铺</p>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-clock"></i>
+                <h3>营业时间</h3>
+                <p>周一至周日: 9:00 - 23:00</p>
+            </div>
+            <div class="contact-item">
+                <i class="fab fa-weixin"></i>
+                <h3>微信</h3>
+                <p>wx_19899991234</p>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-phone"></i>
+                <h3>联系电话</h3>
+                <p>198-9999-1234</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 页脚 -->
+<footer>
+    <div class="container">
+        <p class="copyright">© <a target="_blank" href="https://www.tomde.cloud">本站由Tomde.cloud提供</a></p>
+    </div>
+</footer>
+
+<script>
+    // 倒计时功能
+    function updateCountdown() {
+        const countdownNumber = document.querySelectorAll('.countdown-number');
+        let days = parseInt(countdownNumber[0].textContent);
+        let hours = parseInt(countdownNumber[1].textContent);
+        let minutes = parseInt(countdownNumber[2].textContent);
+        let seconds = parseInt(countdownNumber[3].textContent);
+
+        seconds--;
+
+        if (seconds < 0) {
+            seconds = 59;
+            minutes--;
+
+            if (minutes < 0) {
+                minutes = 59;
+                hours--;
+
+                if (hours < 0) {
+                    hours = 23;
+                    days--;
+
+                    if (days < 0) {
+                        days = 0;
+                        hours = 0;
+                        minutes = 0;
+                        seconds = 0;
+                    }
+                }
+            }
+        }
+
+        countdownNumber[0].textContent = days.toString().padStart(2, '0');
+        countdownNumber[1].textContent = hours.toString().padStart(2, '0');
+        countdownNumber[2].textContent = minutes.toString().padStart(2, '0');
+        countdownNumber[3].textContent = seconds.toString().padStart(2, '0');
+    }
+
+    // 每秒钟更新一次倒计时
+    setInterval(updateCountdown, 1000);
+</script>
+</body>
+</html>
